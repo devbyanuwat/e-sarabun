@@ -28,7 +28,7 @@
                         <!--  dev here-->
 
                         <?php
-                        error_reporting(0);
+                        // error_reporting(0);
                         include('backend/db.php');
                         $q = "";
                         // if ($_GET['q'] == null)
@@ -53,6 +53,8 @@
                             include('edit_doc.php');
                         } else if ($q == "send_mail") {
                             include('send_mail.php');
+                        } else if ($q == "edit_doc_type") {
+                            include('edit_doc_type.php');
                         }
                         ?>
                         <!-- dev here -->

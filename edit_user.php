@@ -69,7 +69,7 @@ $department = $row_department['dept_department'];
         </div>
         <div class="col-6 md-2">
             <label for="tel" class="col-form-label">เบอร์โทร</label>
-            <input type="tel" name="tel" id="tel" class="form-control" value="<?php echo $row['user_tel'] ?>" required>
+            <input type="tel" name="tel" id="tel" class="form-control" value="<?php echo $row['user_tel'] ?>" maxlength="10" pattern="[0-9]{10}" required>
             <div class="invalid-feedback">
                 กรุณากรอกเบอร์โทร
             </div>

@@ -26,11 +26,6 @@ $dept_id = $row_dept['dept_id'];
 // echo $dept_id;
 
 $level = $_POST['level']; //get id
-if ($level == "ผู้ดูแลระบบ") {
-    $level = "admin";
-} else {
-    $level = "user";
-}
 $sql_get_level = "SELECT * FROM `user_level` WHERE `level_rank` LIKE '$level'";
 $result_level = mysqli_query($conn, $sql_get_level);
 $row_level = mysqli_fetch_assoc($result_level);

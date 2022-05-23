@@ -1,8 +1,8 @@
 <div class="col text-end">
     <a href="?q=add_user"><img src="img/icon/add_user.png" width="40px" alt=""></a>
 </div>
-<table class="table table-striped table-hover mt-3 fs-5 text-center">
-    <thead class=" text-white" style="background-color:#C84C32;">
+<table class="table table-striped table-hover mt-3 fs-5 text-center shadow p-3 mb-5 bg-white rounded">
+    <thead class=" text-white rounded" style="background-color:#C84C32;">
         <tr>
             <th>#</th>
             <th>ผู้ใช้งาน</th>

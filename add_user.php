@@ -33,20 +33,32 @@
             </div>
             <div class="col-6 md-2">
                 <label for="position" class="col-form-label">ตำแหน่ง</label>
+
                 <select class="form-select" id="position" name="position">
-                    <option selected>เจ้าหน้าที่ คอบ.</option>
+                    <?php
+                    $sql_post = "SELECT * FROM `position`";
+                    $result_post = mysqli_query($conn, $sql_post);
+                    while ($row_post = mysqli_fetch_assoc($result_post)) {
+                    ?>
+                        <option><?php echo $row_post['post_rank'] ?></option>
+                    <?php } ?>
                 </select>
             </div>
             <div class="col-6 md-2">
                 <label for="dept" class="col-form-label">หน่วยงาน</label>
                 <select class="form-select" id="dept" name="dept">
-                    <option selected>งานทะเบียน</option>
-                    <option>สำนักคอม</option>
+                    <?php
+                    $sql_dept = "SELECT * FROM `department`";
+                    $result_dept = mysqli_query($conn, $sql_dept);
+                    while ($row_dept = mysqli_fetch_assoc($result_dept)) {
+                    ?>
+                        <option><?php echo $row_dept['dept_department'] ?></option>
+                    <?php } ?>
                 </select>
             </div>
             <div class="col-6 md-2">
                 <label for="tel" class="col-form-label">เบอร์โทร</label>
-                <input type="tel" name="tel" id="tel" class="form-control" required>
+                <input type="tel" name="tel" id="tel" class="form-control" maxlength="10" pattern="[0-9]{10}" required>
                 <div class="invalid-feedback">
                     กรุณากรอกเบอร์โทร
                 </div>
@@ -61,8 +73,13 @@
             <div class="col-6 md-2 form-group">
                 <label for="level" class="">กลุ่มผู้ใช้</label>
                 <select class="form-select" id="level" name="level">
-                    <option selected>ผู้ใช้งานทั่วไป</option>
-                    <option>ผู้ดูแลระบบ</option>
+                    <?php
+                    $sql_level = "SELECT * FROM `user_level`";
+                    $result_level = mysqli_query($conn, $sql_level);
+                    while ($row_level = mysqli_fetch_assoc($result_level)) {
+                    ?>
+                        <option><?php echo $row_level['level_rank'] ?></option>
+                    <?php } ?>
                 </select>
             </div>
             <div class="form-row d-flex justify-content-center ">

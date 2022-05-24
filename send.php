@@ -1,4 +1,4 @@
-<form class="row g-3" action="" method="post">
+<!-- <form class="row g-3" action="" method="post">
     <div class="d-flex justify-content-between">
         <div class="col-md-2">
             <label for="category" class="form-label">ประเภท</label>
@@ -29,13 +29,15 @@
     </div>
 </form>
 <hr class="bg-dark border-2 border-top border-dark">
+ -->
 <form action="" method="post" class="g-3">
     <div class="row">
         <div class="col-6">
-            <label for="urgency" class=" m-3 "> ตรวจสอบ</label>
+            <label for="urgency" class=" m-3 ">ตรวจสอบความเร่งด่วน</label>
             <select id="urgency" name="urgency" class="rounded-pill m-3 p-2">
-                <option selected>ส่งเอกสาร</option>
-                <option>...</option>
+                <option selected>ปกติ</option>
+                <option>ด่วน</option>
+                <option>ด่วนที่สุด</option>
             </select>
             <button class="btn btn-outline-dark rounded m-3 ">ค้นหา</button>
         </div>
@@ -50,44 +52,6 @@
                     <th>ชื่อ</th>
                     <th>ที่มา</th>
                     <th>ส่ง</th>
-                </thead>
-
-                <tbody>
-
-                    <td>1</td>
-                    <td>ประชุม</td>
-                    <td>ปกติ</td>
-                    <td>2022</td>
-                    <td>ประชุมไหว้ครู</td>
-                    <td>ภาควิชา</td>
-                    <td><a href="?q=send_mail"><img src="img/icon/send_email.png" width="20%" alt=""></a></td>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</form>
-
-
-<form action="" method="post" class="g-3">
-    <div class="row">
-        <div class="col-6">
-            <label for="urgency" class=" m-3 "> ตรวจสอบ</label>
-            <select id="urgency" name="urgency" class="rounded-pill m-3 p-2">
-                <option selected>เอกสารเข้า</option>
-                <option>...</option>
-            </select>
-            <button class="btn btn-outline-dark rounded m-3 ">ค้นหา</button>
-        </div>
-
-        <div class="col-12">
-            <table class="table table-striped text-center">
-                <thead class="text-white" style="background-color:#C84C32 ;">
-                    <th>#</th>
-                    <th>ประเภท</th>
-                    <th>ความด่วน</th>
-                    <th>เลขที่</th>
-                    <th>ชื่อ</th>
-                    <th>ที่มา</th>
                     <th>เอกสารเข้า</th>
                 </thead>
 
@@ -99,6 +63,7 @@
                     <td>2022</td>
                     <td>ประชุมไหว้ครู</td>
                     <td>ภาควิชา</td>
+                    <td><a href="?q=send_mail"><img src="img/icon/send_email.png" width="20%" alt=""></a></td>
                     <td><a href=""><img src="img/icon/download.png" width="15%" alt=""></a></td>
                 </tbody>
             </table>

@@ -1,4 +1,4 @@
-<form class="row g-3" action="" method="post">
+<form class="row g-3 " action="" method="post">
     <div class="col-md-4">
         <label for="word" class="form-label">ค้นหาจากคำ</label>
         <input type="text" class="form-control rounded-pill" name="word" id="word" required>
@@ -18,12 +18,14 @@
             <option>...</option>
         </select>
     </div>
-    <div class="col-md-1 mt-4">
+    <div class="col-2 mt-4">
         <label for="inputState" class="form-label"></label>
         <button type="submit" class="btn btn-outline-secondary form-control rounded">ค้นหา</button>
     </div>
 </form>
-<table class="table table-striped table-hover mt-3 fs-5">
+
+<hr class="bg-dark border-2 border-top border-dark">
+<table class="table table-striped table-hover mt-3 fs-5 shadow p-3 mb-5 bg-white">
     <thead class="text-center text-white" style="background-color: #C84C32;">
         <tr>
             <th>#</th>

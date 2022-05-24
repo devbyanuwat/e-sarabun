@@ -1,7 +1,7 @@
-<form class="row g-3" action="" method="post">
+<form class="row g-3 needs-validation" action="" method="post" novalidate>
     <div class="row">
-        <div class="col-8 p-1" style="background-color: #ECDBBA;">
-            <div class="col-12 fs-4 text-center text-white" style="background-color:#C84C32;">เพิ่มเอกสาร</div>
+        <div class="col-8 p-1 shadow p-3 mb-5 bg-white" style="background-color: #ECDBBA;">
+            <div class="col-12 fs-4 text-center text-white " style="background-color:#C84C32;">เพิ่มเอกสาร</div>
             <div class="row">
                 <div class="col-6 md-2 ">
                     <label for="category" class="col-form-label">ประเภท</label>
@@ -12,11 +12,11 @@
                 </div>
                 <div class="col-6 md-2">
                     <label for="id" class="col-form-label">ผู้เพิ่มเอกสาร</label>
-                    <input type="text" name="id" id="id" class="form-control">
+                    <input type="text" name="id" id="id" class="form-control" required>
                 </div>
                 <div class="col-6 md-2">
                     <label for="no" class="col-form-label">เลขที่หนังสือ</label>
-                    <input type="text" name="no" id="no" class="form-control">
+                    <input type="text" name="no" id="no" class="form-control" required>
                 </div>
                 <div class="col-3 md-2">
                     <label for="date" class="col-form-label">ลงวันที่</label>
@@ -50,13 +50,10 @@
                     <label for="handle" class="col-form-label">การดำเนินงาน</label>
                     <input type="text" name="handle" id="handle" class="form-control">
                 </div>
-
             </div>
-
-
         </div>
 
-        <div class="col-4 p-1" style="background-color: #ECDBBA;">
+        <div class="col-3 ms-1 shadow p-3 mb-5 bg-white" style="background-color: #ECDBBA;">
             <div class="col-12 fs-4 text-center text-white " style=" background-color:#C84C32;">แนบไฟล์</div>
             <img src="img/icon/upload_doc.png" width="80%" class="mx-auto d-block mt-3" style="cursor: pointer;" onclick="document.getElementById('my_file').click();">
             <div class="col-12">
@@ -79,16 +76,18 @@
                     <input class="form-check-input" type="radio" name="urgency" id="inlineRadio1" value="urgen_normal" checked>
                     <label class="form-check-label" for="inlineRadio1">ปกติ</label>
                 </div>
+                <br>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="urgency" id="inlineRadio2" value="urgen">
                     <label class="form-check-label" for="inlineRadio2">ด่วน</label>
                 </div>
+                <br>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="urgency" id="inlineRadio3" value="urgen_ASAP">
                     <label class="form-check-label" for="inlineRadio3">ด่วนที่สุด</label>
                 </div>
             </div>
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <label for="urgency" class="col-form-label">สถานะเอกสาร</label>
                 <br>
                 <div class="form-check form-check-inline">
@@ -99,7 +98,7 @@
                     <input class="form-check-input" type="radio" name="status" id="inlineRadio2" value="status_action">
                     <label class="form-check-label" for="inlineRadio2">ดำเนินการ</label>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="d-flex justify-content-center mt-3">
             <button class="btn btn-primary rounded-pill me-3" style="width:100px" type="submit">บันทึก</button>

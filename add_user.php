@@ -1,6 +1,6 @@
     <div class="shadow p-3 mb-5 bg-white rounded">
         <div class="col-12 text-center text-white rounded" style="background-color:#C84C32 ;">
-            <div class="fs-4 m-1 ">เพิ่มผู้ใช้งาน</div>
+            <div class="fs-4 m-1 p-1">เพิ่มผู้ใช้งาน</div>
         </div>
         <form class="row g-3 needs-validation" action="backend/admin/add_user.php" method="post" novalidate>
             <div class="col-6 md-2">

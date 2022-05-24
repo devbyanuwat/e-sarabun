@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-3 md-2">
                     <label for="date" class="col-form-label">ลงวันที่</label>
-                    <input type="date" name="date" id="date" class="form-control">
+                    <input type="date" name="date" id="date" class="form-control" value="">
                 </div>
                 <div class="col-3 md-2">
                     <label for="time" class="col-form-label">เวลา</label>

@@ -55,6 +55,8 @@
                             include('send_mail.php');
                         } else if ($q == "edit_doc_type") {
                             include('edit_doc_type.php');
+                        } else if ($q == "test") {
+                            include('test.php');
                         }
                         ?>
                         <!-- dev here -->

@@ -64,7 +64,7 @@
                 <td><?php echo $user_name ?></td> <!-- get name from user id -->
                 <td><?php echo $row['doc_from'] ?></td>
                 <td><?php echo $row['doc_date'] . " " . $row['doc_time'] ?></td>
-                <td><a href="?q=send_mail?doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/send_email.png  " width="20%" alt=""></a></td>
+                <td><a href="?q=send_mail&doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/send_email.png  " width="20%" alt=""></a></td>
                 <td class="d-flex justify-content-around">
                     <a href="?q=edit_doc&doc_id='<?php echo $row['doc_id'] ?>'"><img src="img/icon/edit.png" width="25px" alt=""></a>
                     <a href="backend/admin/del_doc.php?doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/delete.png" width="25px" alt=""></a>

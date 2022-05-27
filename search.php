@@ -1,4 +1,4 @@
-<form class="row g-3 " action="" method="post">
+<form class="row g-3" action="" method="post">
     <div class="col-md-4">
         <label for="word" class="form-label">ค้นหาจากคำ</label>
         <input type="text" class="form-control rounded-pill" name="word" id="word" required>
@@ -38,14 +38,32 @@
         </tr>
     </thead>
     <tbody class="text-center">
-        <tr>
-            <td>1</td>
-            <td>ภายนอก</td>
-            <td>0001</td>
-            <td>ประชุม</td>
-            <td>มจพ</td>
-            <td>16/05/2022</td>
-            <td class="d-flex justify-content-around"><a href="?q=edit_doc"><img src="img/icon/edit.png" width="25px" alt=""></a><a href=""><img src="img/icon/delete.png" width="25px" alt=""></a></td>
-        </tr>
+
+        <?php
+        $sql = "SELECT * FROM `document`";
+        $result = mysqli_query($conn, $sql);
+        $i = 1;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $doc_type_id = $row['doc_type_id'];
+            $sql_doc_type = "SELECT * FROM `doc_type` WHERE `doc_type_id` = $doc_type_id";
+            $result_doc_type = mysqli_query($conn, $sql_doc_type);
+            $row_doc_type = mysqli_fetch_assoc($result_doc_type);
+            $doc_type = $row_doc_type['doc_type'];
+        ?>
+            <tr>
+                <td><?php echo $i; ?></td>
+                <td><?php echo $doc_type  ?></td>
+                <td><?php echo $row['doc_book_number'] ?></td>
+                <td><?php echo $row['user_id'] ?></td> <!-- get name from user id -->
+                <td><?php echo $row['doc_from'] ?></td>
+                <td><?php echo $row['doc_date'] . " " . $row['doc_time'] ?></td>
+                <td class="d-flex justify-content-around">
+                    <a href="?q=edit_doc?doc_id='<?php $row['doc_id'] ?>'"><img src="img/icon/edit.png" width="25px" alt=""></a>
+                    <a href="backend/admin/del_doc.php?doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/delete.png" width="25px" alt=""></a>
+                </td>
+            </tr>
+        <?php
+            $i++;
+        } ?>
     </tbody>
 </table>

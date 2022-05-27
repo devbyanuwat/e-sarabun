@@ -1,4 +1,4 @@
-<form class="row g-3 needs-validation" action="" method="post" novalidate>
+<form class="row g-3 needs-validation" action="backend/admin/add_doc.php" method="post" enctype="multipart/form-data" novalidate>
     <div class="row">
         <div class="col-8 p-1 shadow p-3 mb-5 bg-white" style="background-color: #ECDBBA;">
             <div class="col-12 fs-4 text-center text-white " style="background-color:#C84C32;">เพิ่มเอกสาร</div>
@@ -6,13 +6,18 @@
                 <div class="col-6 md-2 ">
                     <label for="category" class="col-form-label">ประเภท</label>
                     <select id="category" name="category" class="form-select form-control">
-                        <option selected>Someting</option>
-                        <option>...</option>
+                        <?php
+                        $sql_doc_type = "SELECT * FROM `doc_type`";
+                        $result_doc_type = mysqli_query($conn, $sql_doc_type);
+                        while ($row_doc_type = mysqli_fetch_assoc($result_doc_type)) {
+                        ?>
+                            <option><?php echo $row_doc_type['doc_type'] ?></option>
+                        <?php } ?>
                     </select>
                 </div>
                 <div class="col-6 md-2">
                     <label for="id" class="col-form-label">ผู้เพิ่มเอกสาร</label>
-                    <input type="text" name="id" id="id" class="form-control" required>
+                    <input type="text" name="id" id="id" class="form-control" value="Anuwat Tansanguan" required>
                 </div>
                 <div class="col-6 md-2">
                     <label for="no" class="col-form-label">เลขที่หนังสือ</label>
@@ -20,35 +25,35 @@
                 </div>
                 <div class="col-3 md-2">
                     <label for="date" class="col-form-label">ลงวันที่</label>
-                    <input type="date" name="date" id="date" class="form-control" value="">
+                    <input type="date" name="date" id="date" class="form-control" required>
                 </div>
                 <div class="col-3 md-2">
                     <label for="time" class="col-form-label">เวลา</label>
-                    <input type="time" name="time" id="time" class="form-control">
+                    <input type="time" name="time" id="time" class="form-control" required>
                 </div>
                 <div class="col-12">
                     <label for="from" class="col-form-label">จาก</label>
-                    <input type="text" name="from" id="from" class="form-control">
+                    <input type="text" name="from" id="from" class="form-control" required>
                 </div>
                 <div class="col-12">
                     <label for="topic" class="col-form-label">เรื่อง</label>
-                    <input type="text" name="topic" id="topic" class="form-control">
+                    <input type="text" name="topic" id="topic" class="form-control" required>
                 </div>
                 <div class="col-4 md-2">
                     <label for="refer_to" class="col-form-label">อ้างถึง</label>
-                    <input type="text" name="refer_to" id="refer_to" class="form-control">
+                    <input type="text" name="refer_to" id="refer_to" class="form-control" required>
                 </div>
                 <div class="col-8 md-2">
                     <label for="att" class="col-form-label">สิ่งที่แนบมาด้วย</label>
-                    <input type="text" name="att" id="att" class="form-control">
+                    <input type="text" name="att" id="att" class="form-control" required>
                 </div>
                 <div class="col-5 md-2">
                     <label for="action" class="col-form-label">การปฏิบัติ</label>
-                    <input type="text" name="action" id="action" class="form-control">
+                    <input type="text" name="action" id="action" class="form-control" required>
                 </div>
                 <div class="col-7 md-2">
                     <label for="handle" class="col-form-label">การดำเนินงาน</label>
-                    <input type="text" name="handle" id="handle" class="form-control">
+                    <input type="text" name="handle" id="handle" class="form-control" required>
                 </div>
             </div>
         </div>
@@ -58,7 +63,10 @@
             <img src="img/icon/upload_doc.png" width="80%" class="mx-auto d-block mt-3" style="cursor: pointer;" onclick="document.getElementById('my_file').click();">
             <div class="col-12">
                 <input type="button" id="get_file" class="mx-auto d-block mt-3 btn btn-danger rounded-pill" value="อัพโหลดเอกสาร">
-                <input type="file" name="my_file" id="my_file" style="display: none;">
+                <input type="file" name="file[]" id="my_file" style="display:none" multiple required>
+                <div class="invalid-feedback text-center">
+                    โปรดเลือกไฟล์เอกสาร
+                </div>
             </div>
 
             <script>

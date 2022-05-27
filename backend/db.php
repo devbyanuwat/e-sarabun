@@ -1,3 +1,3 @@
 <?php
 $conn = mysqli_connect("localhost", "root", "", "sarabun");
-mysqli_query($conn, "SET NAME 'utf8'");
+mysqli_set_charset($conn, "utf8");

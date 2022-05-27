@@ -26,7 +26,7 @@ $sql = "INSERT INTO `document`
 
 mysqli_query($conn, $sql);
 $doc_id = mysqli_insert_id($conn);
-echo $doc_id;
+
 
 // Count total uploaded files
 $totalfiles = count($_FILES['file']['name']);
@@ -49,3 +49,7 @@ for ($i = 0; $i < $totalfiles; $i++) {
         echo 'Error in uploading file - ' . $_FILES['file']['name'][$i] . '<br/>';
     }
 }
+
+
+mysqli_close($conn);
+header('location:../../?q=search');

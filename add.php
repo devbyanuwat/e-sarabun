@@ -110,7 +110,7 @@
         </div>
         <div class="d-flex justify-content-center mt-3">
             <button class="btn btn-primary rounded-pill me-3" style="width:100px" type="submit">บันทึก</button>
-            <button class="btn btn-danger rounded-pill" style="opacity: 0.9;" type="button">ยกเลิก</button>
+            <button class="btn btn-danger rounded-pill" style="opacity: 0.9;" onclick="window.location.href='?q=search'" type="button">ยกเลิก</button>
         </div>
     </div>
 </form>

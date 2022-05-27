@@ -34,10 +34,11 @@
             <th>ชื่อ</th>
             <th>ที่มา</th>
             <th>วันที่รับ</th>
+            <th>ส่ง</th>
             <th>เครื่องมือ</th>
         </tr>
     </thead>
-    <tbody class="text-center">
+    <tbody class="text-center fs-6">
 
         <?php
         $sql = "SELECT * FROM `document`";
@@ -49,16 +50,23 @@
             $result_doc_type = mysqli_query($conn, $sql_doc_type);
             $row_doc_type = mysqli_fetch_assoc($result_doc_type);
             $doc_type = $row_doc_type['doc_type'];
+
+            $user_id = $row['user_id'];
+            $sql_user = "SELECT * FROM `user` WHERE `user_id` = $user_id";
+            $result_user = mysqli_query($conn, $sql_user);
+            $row_user = mysqli_fetch_assoc($result_user);
+            $user_name = $row_user['user_name'];
         ?>
             <tr>
                 <td><?php echo $i; ?></td>
                 <td><?php echo $doc_type  ?></td>
                 <td><?php echo $row['doc_book_number'] ?></td>
-                <td><?php echo $row['user_id'] ?></td> <!-- get name from user id -->
+                <td><?php echo $user_name ?></td> <!-- get name from user id -->
                 <td><?php echo $row['doc_from'] ?></td>
                 <td><?php echo $row['doc_date'] . " " . $row['doc_time'] ?></td>
+                <td><a href="?q=send_mail?doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/send_email.png  " width="20%" alt=""></a></td>
                 <td class="d-flex justify-content-around">
-                    <a href="?q=edit_doc?doc_id='<?php $row['doc_id'] ?>'"><img src="img/icon/edit.png" width="25px" alt=""></a>
+                    <a href="?q=edit_doc&doc_id='<?php echo $row['doc_id'] ?>'"><img src="img/icon/edit.png" width="25px" alt=""></a>
                     <a href="backend/admin/del_doc.php?doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/delete.png" width="25px" alt=""></a>
                 </td>
             </tr>

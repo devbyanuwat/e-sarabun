@@ -16,11 +16,16 @@
                     $sql = "SELECT * FROM `doc_type`";
                     $result = mysqli_query($conn, $sql);
                     $i = 1;
+
                     while ($row = mysqli_fetch_assoc($result)) {
+                        $doc_type_id = $row['doc_type_id'];
+                        $result_num = "SELECT * FROM `document` WHERE `doc_type_id` = $doc_type_id";
+                        // echo $doc_type_id . "<-";
+                        $num_row = mysqli_num_rows(mysqli_query($conn, $result_num));
                     ?>
                         <tr>
                             <td><?php echo $i; ?></td>
-                            <td><?php echo $row['doc_type'] ?> (10 แฟ้ม)</td>
+                            <td><?php echo $row['doc_type'] . "( " . $num_row . " " . "แฟ้ม)" ?> </td>
                             <!-- <td><a href="?q=add"><img src="img/icon/add_document.png" width="25px" alt=""></a></td> -->
                             <td class="d-flex justify-content-around"><a href="?q=edit_doc_type"><img src="img/icon/edit.png" width="25px" alt=""></a><a href=""><img src="img/icon/delete.png" width="25px" alt=""></a></td>
                         </tr>

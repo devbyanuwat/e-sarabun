@@ -19,7 +19,12 @@ if (mysqli_num_rows($result) > 0) {
         $_SESSION['level'] = "User";
     }
     echo $_SESSION['level'];
-    header('location:../?q=search');
+
+    if ($_SESSION['level'] == "Admin") {
+        header('location:../?q=search');
+    } else {
+        header('location:../?q=search');
+    }
 } else {
     header('location:../login.php');
 }

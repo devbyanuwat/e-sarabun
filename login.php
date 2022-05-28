@@ -15,6 +15,7 @@
 </style>
 
 <body>
+    <!-- <h1><?php echo $_SESSION['level'] ?></h1> -->
     <div class="col-12 d-flex justify-content-end">
         <div class="row">
             <div class="col-4 mx-auto bg-dark d-block rounded" style="width: 100%;height:100%;">

@@ -20,7 +20,7 @@ $user_name = $row_user['user_name'];
 
 
         <div class="col-9 md-2">
-            <label for="email" class="col-form-label">ผู้เพิ่มเอกสาร</label>
+            <label for="email" class="col-form-label">E-mail ผู้รับ</label>
             <input type="text" name="email" id="email" class="form-control" required>
             <div id="email" class="form-text text-danger">
                 * ผู้รับหลายคนให้ค้นด้วย (,) เช่น ac@gmail.com,b@gmail.com

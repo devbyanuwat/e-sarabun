@@ -17,7 +17,25 @@ $user_name = $row_user['user_name'];
 <form class="row g-3 needs-validation" action="backend/admin/edit_doc.php" method="post" enctype="multipart/form-data" novalidate>
     <div class="row">
         <div class="col-12 fs-4 text-center text-white " style="background-color:#C84C32;">ผู้รับ</div>
-        <div class="col-8 p-1 shadow p-3 mb-5 bg-white" style="background-color: #ECDBBA;">
+        <div class="col-8 md-2">
+            <label for="email" class="col-form-label">ผู้เพิ่มเอกสาร</label>
+            <input type="email" name="email" id="email" class="form-control" required>
+            <div id="email" class="form-text text-danger">
+                * ผู้รับหลายคนให้ค้นด้วย (,) เช่น ac@gmail.com,b@gmail.com
+            </div>
+        </div>
+        <div class="col-4 md-2">
+            <label for="to" class="col-form-label">ถึง</label>
+            <input type="text" name="to" id="to" class="form-control" required>
+            <div id=" email" class="form-text text-danger">
+                * Username
+            </div>
+        </div>
+        <div class="col-4 md-2">
+            <label for="subject" class="col-form-label">ถึง</label>
+            <input type="text" name="subject" id="subject" class="form-control" required>
+        </div>
+        <div class="col-8 p-1 shadow p-3 mb-5 bg-white" style="background-color: #ECDBBA;pointer-events: none;opacity: 0.8;">
             <div class="col-12 fs-4 text-center text-white " style="background-color:#C84C32;">เอกสาร</div>
             <div class="row">
                 <input type="hidden" name="doc_id" value="<?php echo $row['doc_id'] ?>">
@@ -96,7 +114,7 @@ $user_name = $row_user['user_name'];
             }
             ?>
 
-            <div class="col-12">
+            <div class="col-12" style="pointer-events: none;opacity: 0.8;">
                 <label for="urgency" class="col-form-label">ความเร่งด่วน</label>
                 <br>
                 <div class="form-check form-check-inline">
@@ -133,3 +151,102 @@ $user_name = $row_user['user_name'];
         </div>
     </div>
 </form>
+
+<?php
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+
+//Create an instance; passing `true` enables exceptions
+$mail = new PHPMailer(true);
+
+try {
+    //Server settings
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'user@example.com';                     //SMTP username
+    $mail->Password   = 'secret';                               //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+    //Recipients
+    $mail->setFrom('from@example.com', 'Mailer');
+    $mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
+    $mail->addAddress('ellen@example.com');               //Name is optional
+    $mail->addReplyTo('info@example.com', 'Information');
+    $mail->addCC('cc@example.com');
+    $mail->addBCC('bcc@example.com');
+
+    //Attachments
+    $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'Here is the subject';
+    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+?>
+
+<?php
+
+// Import PHPMailer classes into the global namespace 
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer-master/src/Exception.php';
+require 'PHPMailer-master/src/PHPMailer.php';
+require 'PHPMailer-master/src/SMTP.php';
+
+$mail = new PHPMailer;
+
+$mail->isSMTP();                      // Set mailer to use SMTP 
+$mail->Host = 'smtp.gmail.com';       // Specify main and backup SMTP servers 
+$mail->SMTPAuth = true;               // Enable SMTP authentication 
+$mail->Username = 's6302041520171@email.kmutnb.ac.th';   // SMTP username 
+$mail->Password = 'Tansanguan1@';   // SMTP password 
+$mail->SMTPSecure = 'tls';            // Enable TLS encryption, ssl also accepted 
+$mail->Port = 25;                    // TCP port to connect to 
+
+// Sender info 
+$mail->setFrom('sender@codexworld.com', 'KMUTNB');
+$mail->addReplyTo('reply@codexworld.com', 'KMUTNB');
+
+// Add a recipient 
+$mail->addAddress('oufonnuch@gmail.com');
+$mail->addAddress('pocketninja768@gmail.com');
+//$mail->addCC('cc@example.com'); 
+//$mail->addBCC('bcc@example.com'); 
+$mail->addAttachment('/var/tmp/file.tar.gz');
+$mail->addAttachment('doc/Final_CAD.pdf');
+
+// Set email format to HTML 
+$mail->isHTML(true);
+
+// Mail subject 
+$mail->Subject = 'DOC';
+
+// Mail body content 
+$bodyContent = '<h1>How to Send Email from Localhost using PHP by CodexWorld</h1>';
+$bodyContent .= '<p>This HTML email is sent from the localhost server using PHP by <b>CodexWorld</b></p>';
+$mail->Body    = $bodyContent;
+
+// Send email 
+if (!$mail->send()) {
+    echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+} else {
+    echo 'Message has been sent.';
+}

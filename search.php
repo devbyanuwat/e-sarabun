@@ -31,11 +31,12 @@
             <th>#</th>
             <th>ประเภท</th>
             <th>เลขที่</th>
-            <th>ชื่อ</th>
+            <th class="fs-6">ผู้เพิ่มเอกสาร</th>
             <th>ที่มา</th>
             <th>วันที่รับ</th>
+            <th>วันที่ส่ง</th>
             <th>ส่ง</th>
-            <th>เครื่องมือ</th>
+            <th class="fs-6">เครื่องมือ</th>
         </tr>
     </thead>
     <tbody class="text-center fs-6">
@@ -63,15 +64,21 @@
                 <td><?php echo $row['doc_book_number'] ?></td>
                 <td><?php echo $user_name ?></td> <!-- get name from user id -->
                 <td><?php echo $row['doc_from'] ?></td>
-                <td><?php echo $row['doc_date'] . " " . $row['doc_time'] ?></td>
-                <td><a href="?q=send_mail&doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/send_email.png  " width="20%" alt=""></a></td>
+                <td class="fs-6"><?php echo $row['doc_date'] ?></td>
+                <td class="fs-6"><?php echo $row['doc_date'] ?></td>
+                <td><a href="?q=send_mail&doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/send_email.png  " width="25" alt=""></a></td>
                 <td class="d-flex justify-content-around">
-                    <a href="?q=edit_doc&doc_id='<?php echo $row['doc_id'] ?>'"><img src="img/icon/edit.png" width="25px" alt=""></a>
-                    <a href="backend/admin/del_doc.php?doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/delete.png" width="25px" alt=""></a>
+                    <div class="col">
+                        <a href="?q=edit_doc&doc_id='<?php echo $row['doc_id'] ?>'"><img src="img/icon/edit.png" width="25px" alt=""></a>
+                        <a href="backend/admin/del_doc.php?doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/delete.png" width="25px" alt=""></a>
+                    </div>
                 </td>
             </tr>
         <?php
             $i++;
         } ?>
+
+
+
     </tbody>
 </table>

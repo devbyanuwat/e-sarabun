@@ -55,6 +55,13 @@
                     <label for="handle" class="col-form-label">การดำเนินงาน</label>
                     <input type="text" name="handle" id="handle" class="form-control" required>
                 </div>
+                <div class="col-12 md-2">
+                    <label for="handle" class="col-form-label">หมายเหตุ</label>
+                    <input type="text" name="handle" id="handle" class="form-control">
+                    <div id="email" class="form-text text-danger">
+                        *แนบลิ้งค์ กรณีอัพโหลดลง Google Drive
+                    </div>
+                </div>
             </div>
         </div>
 

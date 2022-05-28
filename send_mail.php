@@ -159,6 +159,11 @@ $user_name = $row_user['user_name'];
 </form>
 
 <?php
+if (isset($_POST['submit'])) {
+    $email =  explode(",", $_POST['email']);
+    $nums = count($email);
+    $sub = $_POST['subject'];
+}
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -168,11 +173,7 @@ require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
 
 $mail = new PHPMailer;
-if (isset($_POST['submit'])) {
-    $email =  explode(",", $_POST['email']);
-    $nums = count($email);
-    $sub = $_POST['subject'];
-}
+
 
 
 // Import PHPMailer classes into the global namespace
@@ -232,5 +233,4 @@ if (!$mail->send()) {
                 พบข้อผิดพลาด ! กรุณาลองใหม่
             </div>';
 } else {
-    echo "<script>window.location.href = '?q=search'</script>";
 }

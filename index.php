@@ -1,38 +1,58 @@
-<?php include('top.php'); ?>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=K2D:wght@500&display=swap');
+<?php include('top.php');
+include('backend/db.php');
+if ($_SESSION['username'] == '') {
+    include('login.php');
+} else {
+?>
 
-    body {
-        font-family: 'K2D', sans-serif;
-    }
-</style>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 bg-body rounded">
+        <div class="container">
+            <a class="navbar-brand fs-3" style="text-shadow: 0.5px 0.5px 2px #000000;" href="#">
+                <img src="img/logo/kmutnb_logo.png" alt="" width="102" height="102" style="filter: drop-shadow(0 0 0.1rem black);">
+                ระบบสารบัญอิเล็กทรอนิกส์ออนไลน์
+            </a>
+            <div class="d-flex justify-content-end fs-3 ">
+                <div class="me-3" style="text-shadow: 0.5px 0.5px 2px #000000;"><?php echo $_SESSION['username'] ?> (<?php echo $_SESSION['level'] ?>)</div>
 
-
-<body>
-
-
-    <div class="container mt-5 ">
-        <div class="row">
-            <div class="col-2 shadow p-1 bg-body rounded d-flex justify-content-center">
-                <div style="display:flex;flex-direction:column;">
-                    <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=search'"><img src="img/icon/search.png" width="30px" style="opacity: 0.5;"> เอกสาร</button>
-                    <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=add'"><img src="img/icon/add_document.png" width="30px" style="opacity: 0.5;"> เพิ่ม</button>
-                    <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=send'"><img src="img/icon/send.png" width="30px" style="opacity: 0.5;"> ส่ง</button>
-                    <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=doc'"><img src="img/icon/folder.png" width="30px" style="opacity: 0.5;"> ตู้เอกสาร</button>
-                    <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=manage'"><img src="img/icon/manage.png" width="30px" style="opacity: 0.5;"> จัดการผู้ใช้</button>
-                </div>
+                <a href="logout.php">
+                    <img src="img/icon/logout.png" width="auto" height="35px" style="filter: drop-shadow(0 0 0.1rem black);">
+                </a>
             </div>
-            <div class="col shadow p-3 bg-body rounded" style="margin-left: 10px;">
-                <div style="height: 100%;" class="p-3">
-                    <div class="fs-6">
-                        <!--  dev here-->
+        </div>
+    </nav>
 
-                        <?php
-                        error_reporting(0);
-                        include('backend/db.php');
-                        if ($_SESSION['username'] == '') {
-                            header('location:login.php');
-                        } else {
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=K2D:wght@500&display=swap');
+
+        body {
+            font-family: 'K2D', sans-serif;
+        }
+    </style>
+
+
+    <body>
+
+
+        <div class="container mt-5 ">
+            <div class="row">
+                <div class="col-2 shadow p-1 bg-body rounded d-flex justify-content-center">
+                    <div style="display:flex;flex-direction:column;">
+                        <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=search'"><img src="img/icon/search.png" width="30px" style="opacity: 0.5;"> เอกสาร</button>
+                        <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=add'"><img src="img/icon/add_document.png" width="30px" style="opacity: 0.5;"> เพิ่ม</button>
+                        <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=send'"><img src="img/icon/send.png" width="30px" style="opacity: 0.5;"> ส่ง</button>
+                        <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=doc'"><img src="img/icon/folder.png" width="30px" style="opacity: 0.5;"> ตู้เอกสาร</button>
+                        <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=manage'"><img src="img/icon/manage.png" width="30px" style="opacity: 0.5;"> จัดการผู้ใช้</button>
+                    </div>
+                </div>
+                <div class="col shadow p-3 bg-body rounded" style="margin-left: 10px;">
+                    <div style="height: 100%;" class="p-3">
+                        <div class="fs-6">
+                            <!--  dev here-->
+
+                            <?php
+
+
                             $q = "";
                             // if ($_GET['q'] == null)
                             $q = $_GET['q'];
@@ -61,73 +81,74 @@
                             } else if ($q == "test") {
                                 include('test.php');
                             }
-                        }
 
-                        ?>
-                        <!-- dev here -->
+
+                            ?>
+                            <!-- dev here -->
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <script type="text/javascript">
-                function readURL(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
+                <script type="text/javascript">
+                    function readURL(input) {
+                        if (input.files && input.files[0]) {
+                            var reader = new FileReader();
 
-                        reader.onload = function(e) {
-                            $('#blah').attr('src', e.target.result);
+                            reader.onload = function(e) {
+                                $('#blah').attr('src', e.target.result);
+                            }
+
+                            reader.readAsDataURL(input.files[0]);
                         }
-
-                        reader.readAsDataURL(input.files[0]);
                     }
-                }
-            </script>
-            <script>
-                (function() {
-                    'use strict'
+                </script>
+                <script>
+                    (function() {
+                        'use strict'
 
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    var forms = document.querySelectorAll('.needs-validation')
+                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                        var forms = document.querySelectorAll('.needs-validation')
 
-                    // Loop over them and prevent submission
-                    Array.prototype.slice.call(forms)
-                        .forEach(function(form) {
-                            form.addEventListener('submit', function(event) {
-                                if (!form.checkValidity()) {
-                                    event.preventDefault()
-                                    event.stopPropagation()
-                                }
+                        // Loop over them and prevent submission
+                        Array.prototype.slice.call(forms)
+                            .forEach(function(form) {
+                                form.addEventListener('submit', function(event) {
+                                    if (!form.checkValidity()) {
+                                        event.preventDefault()
+                                        event.stopPropagation()
+                                    }
 
-                                form.classList.add('was-validated')
-                            }, false)
+                                    form.classList.add('was-validated')
+                                }, false)
+                            })
+                    })()
+
+                    function conf_del(id) {
+                        Swal.fire({
+                            title: 'ยืนยันการลบหรือไม่?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            cancelButtonText: "ยกเลิก",
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'ยืนยันการลบ',
+
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+
+                                window.location.href = 'backend/admin/del_doc.php?doc_id=' + id
+
+                            }
                         })
-                })()
-
-                function conf_del(id) {
-                    Swal.fire({
-                        title: 'ยืนยันการลบหรือไม่?',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        cancelButtonText: "ยกเลิก",
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'ยืนยันการลบ',
-
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-
-                            window.location.href = 'backend/admin/del_doc.php?doc_id=' + id
-
-                        }
-                    })
-                }
-            </script>
+                    }
+                </script>
 
 
+            </div>
         </div>
-    </div>
 
 
-</body>
+    </body>
 
-<?php include('bottom.php'); ?>
+    <?php include('bottom.php'); ?>
+<?php } ?>

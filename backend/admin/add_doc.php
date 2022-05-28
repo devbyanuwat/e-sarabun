@@ -53,4 +53,4 @@ for ($i = 0; $i < $totalfiles; $i++) {
 
 
 mysqli_close($conn);
-// header('location:../../?q=search');
+header('location:../../?q=search');

@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-6 md-2">
                     <label for="id" class="col-form-label">ผู้เพิ่มเอกสาร</label>
-                    <input type="text" name="id" id="id" class="form-control" value="<?php echo $_SESSION['name'] ?>" required>
+                    <input type="text" name="id" id="id" class="form-control" style="pointer-events: none;" value="<?php echo $_SESSION['name'] ?>" required>
                 </div>
                 <div class="col-6 md-2">
                     <label for="no" class="col-form-label">เลขที่หนังสือ</label>

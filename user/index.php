@@ -66,9 +66,6 @@ if (mysqli_num_rows($result) > 0) {
                     <td class="d-flex justify-content-around">
                         <div class="col">
                             <a href="?q=view&doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/open.png  " width="25" alt=""></a>
-                            <a href="?q=edit_doc&doc_id='<?php echo $row['doc_id'] ?>'"><img src="img/icon/edit.png" width="25px" alt=""></a>
-                            <!-- <a href="backend/admin/del_doc.php?doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/delete.png" width="25px" alt=""></a> -->
-                            <a onclick="conf_del(<?php echo $row['doc_id'] ?>);"><img src="img/icon/delete.png" width="25px" alt=""></a>
                             <p><?php if ($doc_status == 1) {
                                     echo "ยังไม่ได้อ่าน";
                                 } else {

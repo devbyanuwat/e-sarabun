@@ -159,78 +159,87 @@ $user_name = $row_user['user_name'];
 </form>
 
 <?php
-if (isset($_POST['submit'])) {
-    $email =  explode(",", $_POST['email']);
-    $nums = count($email);
-    $sub = $_POST['subject'];
-}
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'PHPMailer-master/src/Exception.php';
-require 'PHPMailer-master/src/PHPMailer.php';
-require 'PHPMailer-master/src/SMTP.php';
+if (isset($_POST['submit'])) {
+    $email =  explode(",", $_POST['email']);
+    $nums = count($email);
+    $sub = $_POST['subject'];
+    $to = $_POST['to'];
 
-$mail = new PHPMailer;
 
 
 
-// Import PHPMailer classes into the global namespace
+    require 'PHPMailer-master/src/Exception.php';
+    require 'PHPMailer-master/src/PHPMailer.php';
+    require 'PHPMailer-master/src/SMTP.php';
 
-// Import PHPMailer classes into the global namespace 
-// use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\Exception;
+    $mail = new PHPMailer;
 
-$mail = new PHPMailer;
 
-$mail->isSMTP();                      // Set mailer to use SMTP 
-$mail->Host = 'smtp.gmail.com';       // Specify main and backup SMTP servers 
-$mail->SMTPAuth = true;               // Enable SMTP authentication 
-$mail->Username = 's6302041520171@email.kmutnb.ac.th';   // SMTP username 
-$mail->Password = 'Tansanguan1@';   // SMTP password 
-$mail->SMTPSecure = 'tls';            // Enable TLS encryption, ssl also accepted 
-$mail->Port = 25;                    // TCP port to connect to 
 
-// Sender info 
-$mail->setFrom('sender@codexworld.com', 'KMUTNB');
-$mail->addReplyTo('reply@codexworld.com', 'KMUTNB');
+    // Import PHPMailer classes into the global namespace
 
-// Add a recipient 
-foreach ($email as $emails) {
-    // # code...
-    // echo $emails . "<br>";
-    $mail->addAddress($emails);
-}
-// $mail->addAddress('oufonnuch@gmail.com');
-// $mail->addAddress('mailfordevbyanuwat@gmail.com');
+    // Import PHPMailer classes into the global namespace 
+    // use PHPMailer\PHPMailer\PHPMailer;
+    // use PHPMailer\PHPMailer\Exception;
 
-// $mail->addAddress('pocketninja768@gmail.com');
-//$mail->addCC('cc@example.com'); 
-//$mail->addBCC('bcc@example.com'); 
-$mail->addAttachment('/var/tmp/file.tar.gz');
-foreach ($doc_file as $file) {
-    # code...
-    $mail->addAttachment('doc/' . $file);
-}
-// print_r($doc_file);
-// Set email format to HTML 
-$mail->isHTML(true);
+    $mail = new PHPMailer;
 
-// Mail subject 
-$mail->Subject = $sub;
+    $mail->isSMTP();                      // Set mailer to use SMTP 
+    $mail->Host = 'smtp.gmail.com';       // Specify main and backup SMTP servers 
+    $mail->SMTPAuth = true;               // Enable SMTP authentication 
+    $mail->Username = 's6302041520171@email.kmutnb.ac.th';   // SMTP username 
+    $mail->Password = 'Tansanguan1@';   // SMTP password 
+    $mail->SMTPSecure = 'tls';            // Enable TLS encryption, ssl also accepted 
+    $mail->Port = 25;                    // TCP port to connect to 
 
-// Mail body content 
-$bodyContent = '<h1>ภาษาไทย</h1>';
-$bodyContent .= '<p>View Document :http://localhost/E-lecsarabun/?q=add</p>';
-$mail->Body    = $bodyContent;
+    // Sender info 
+    $mail->setFrom('sender@codexworld.com', 'KMUTNB');
+    $mail->addReplyTo('reply@codexworld.com', 'KMUTNB');
 
-// Send email 
-$chk = 0;
-if (!$mail->send()) {
-    echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
-    echo '  <div class="alert alert-danger" role="alert">
+    // Add a recipient 
+    foreach ($email as $emails) {
+        // # code...
+        // echo $emails . "<br>";
+        $mail->addAddress($emails);
+    }
+    // $mail->addAddress('oufonnuch@gmail.com');
+    // $mail->addAddress('mailfordevbyanuwat@gmail.com');
+
+    // $mail->addAddress('pocketninja768@gmail.com');
+    //$mail->addCC('cc@example.com'); 
+    //$mail->addBCC('bcc@example.com'); 
+    $mail->addAttachment('/var/tmp/file.tar.gz');
+    foreach ($doc_file as $file) {
+        # code...
+        $mail->addAttachment('doc/' . $file);
+    }
+    // print_r($doc_file);
+    // Set email format to HTML 
+    $mail->isHTML(true);
+
+    // Mail subject 
+    $mail->Subject = $sub;
+
+    // Mail body content 
+    $bodyContent = '<h1>ภาษาไทย</h1>';
+    $bodyContent .= '<p>View Document :http://localhost/E-lecsarabun/?q=add</p>';
+    $mail->Body    = $bodyContent;
+
+    // Send email 
+    $chk = 0;
+    if (!$mail->send()) {
+        echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+        echo '  <div class="alert alert-danger" role="alert">
                 พบข้อผิดพลาด ! กรุณาลองใหม่
             </div>';
-} else {
+    } else {
+
+        $sql_update = "UPDATE `document` SET `doc_to` = '$to' WHERE `document`.`doc_id` = $doc_id;";
+        mysqli_query($conn, $sql_update);
+        echo "<script> window.location.href = '?q=search'</script>";
+    }
 }

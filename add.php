@@ -69,14 +69,19 @@
             <div class="col-12 fs-4 text-center text-white " style=" background-color:#C84C32;">แนบไฟล์</div>
             <img src="img/icon/upload_doc.png" width="80%" class="mx-auto d-block mt-3" style="cursor: pointer;" onclick="document.getElementById('my_file').click();">
             <div class="col-12">
-                <input type="button" id="get_file" class="mx-auto d-block mt-3 btn btn-danger rounded-pill" value="อัพโหลดเอกสาร">
-                <input type="file" name="file[]" id="my_file" style="display:none" multiple required>
+                <input type="button" id="get_file" class="mx-auto d-block mt-3 md-2 btn btn-danger rounded-pill" value="อัพโหลดเอกสาร" onclick="count_file_upload();">
+                <input type="file" name="file[]" id="my_file" class="form-control-sm mt-3 mx-auto" multiple required>
                 <div class="invalid-feedback text-center">
                     โปรดเลือกไฟล์เอกสาร
                 </div>
             </div>
 
             <script>
+                function count_file_upload() {
+
+                    var numFiles = $("input:file")[0].files.length;
+                    alert(numFiles);
+                }
                 document.getElementById('get_file').onclick =
 
                     function() {

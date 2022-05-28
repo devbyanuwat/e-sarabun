@@ -50,9 +50,10 @@
                     <th>ความด่วน</th>
                     <th>เลขที่</th>
                     <th>ชื่อ</th>
-                    <th>ที่มา</th>
-                    <th>ส่ง</th>
-                    <th>เอกสารเข้า</th>
+                    <th>อัพโหลดเอกสาร</th>
+                    <th>ส่งเอกสาร</th>
+                    <th>ส่งอีกครั้ง</th>
+                    <!-- <th>เอกสารเข้า</th> -->
                 </thead>
 
                 <tbody>
@@ -61,10 +62,11 @@
                     <td>ประชุม</td>
                     <td>ปกติ</td>
                     <td>2022</td>
-                    <td>ประชุมไหว้ครู</td>
-                    <td>ภาควิชา</td>
+                    <td>อ.เปิ้ล</td>
+                    <td>2022-04-28</td>
+                    <td>2022-05-28</td>
                     <td><a href="?q=send_mail"><img src="img/icon/send_email.png" width="20%" alt=""></a></td>
-                    <td><a href=""><img src="img/icon/download.png" width="15%" alt=""></a></td>
+                    <!-- <td><a href=""><img src="img/icon/download.png" width="15%" alt=""></a></td> -->
                 </tbody>
             </table>
         </div>

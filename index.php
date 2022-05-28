@@ -17,7 +17,7 @@
                 <div style="display:flex;flex-direction:column;">
                     <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=search'"><img src="img/icon/search.png" width="30px" style="opacity: 0.5;"> เอกสาร</button>
                     <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=add'"><img src="img/icon/add_document.png" width="30px" style="opacity: 0.5;"> เพิ่ม</button>
-                    <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=send'"><img src="img/icon/send.png" width="30px" style="opacity: 0.5;"> รับ/ส่ง</button>
+                    <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=send'"><img src="img/icon/send.png" width="30px" style="opacity: 0.5;"> ส่ง</button>
                     <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=doc'"><img src="img/icon/folder.png" width="30px" style="opacity: 0.5;"> ตู้เอกสาร</button>
                     <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=manage'"><img src="img/icon/manage.png" width="30px" style="opacity: 0.5;"> จัดการผู้ใช้</button>
                 </div>
@@ -30,34 +30,39 @@
                         <?php
                         error_reporting(0);
                         include('backend/db.php');
-                        $q = "";
-                        // if ($_GET['q'] == null)
-                        $q = $_GET['q'];
-                        if ($q == "") {
-                            include('search.php');
-                        } else  if ($q == "search") {
-                            include('search.php');
-                        } else  if ($q == "add") {
-                            include('add.php');
-                        } else if ($q == "send") {
-                            include('send.php');
-                        } else  if ($q == "doc") {
-                            include('doc.php');
-                        } else if ($q == "manage") {
-                            include('manage.php');
-                        } else if ($q == "add_user") {
-                            include('add_user.php');
-                        } else  if ($q == "edit_user") {
-                            include('edit_user.php');
-                        } else if ($q == "edit_doc") {
-                            include('edit_doc.php');
-                        } else if ($q == "send_mail") {
-                            include('send_mail.php');
-                        } else if ($q == "edit_doc_type") {
-                            include('edit_doc_type.php');
-                        } else if ($q == "test") {
-                            include('test.php');
+                        if ($_SESSION['username'] == '') {
+                            header('location:login.php');
+                        } else {
+                            $q = "";
+                            // if ($_GET['q'] == null)
+                            $q = $_GET['q'];
+                            if ($q == "") {
+                                include('search.php');
+                            } else  if ($q == "search") {
+                                include('search.php');
+                            } else  if ($q == "add") {
+                                include('add.php');
+                            } else if ($q == "send") {
+                                include('send.php');
+                            } else  if ($q == "doc") {
+                                include('doc.php');
+                            } else if ($q == "manage") {
+                                include('manage.php');
+                            } else if ($q == "add_user") {
+                                include('add_user.php');
+                            } else  if ($q == "edit_user") {
+                                include('edit_user.php');
+                            } else if ($q == "edit_doc") {
+                                include('edit_doc.php');
+                            } else if ($q == "send_mail") {
+                                include('send_mail.php');
+                            } else if ($q == "edit_doc_type") {
+                                include('edit_doc_type.php');
+                            } else if ($q == "test") {
+                                include('test.php');
+                            }
                         }
+
                         ?>
                         <!-- dev here -->
                     </div>

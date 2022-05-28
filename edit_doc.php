@@ -33,7 +33,7 @@ $user_name = $row_user['user_name'];
                 </div>
                 <div class="col-6 md-2">
                     <label for="id" class="col-form-label">ผู้เพิ่มเอกสาร</label>
-                    <input type="text" name="id" id="id" class="form-control" value="<?php echo $user_name ?>" required>
+                    <input type="text" style="pointer-events: none;" name="id" id="id" class="form-control" value="<?php echo $user_name ?>" required>
                 </div>
                 <div class="col-6 md-2">
                     <label for="no" class="col-form-label">เลขที่หนังสือ</label>

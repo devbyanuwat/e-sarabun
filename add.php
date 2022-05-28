@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-6 md-2">
                     <label for="id" class="col-form-label">ผู้เพิ่มเอกสาร</label>
-                    <input type="text" name="id" id="id" class="form-control" value="Anuwat Tansanguan" required>
+                    <input type="text" name="id" id="id" class="form-control" value="<?php echo $_SESSION['name'] ?>" required>
                 </div>
                 <div class="col-6 md-2">
                     <label for="no" class="col-form-label">เลขที่หนังสือ</label>
@@ -56,8 +56,8 @@
                     <input type="text" name="handle" id="handle" class="form-control" required>
                 </div>
                 <div class="col-12 md-2">
-                    <label for="handle" class="col-form-label">หมายเหตุ</label>
-                    <input type="text" name="handle" id="handle" class="form-control">
+                    <label for="des" class="col-form-label">หมายเหตุ</label>
+                    <input type="text" name="des" id="des" class="form-control">
                     <div id="email" class="form-text text-danger">
                         *แนบลิ้งค์ กรณีอัพโหลดลง Google Drive
                     </div>

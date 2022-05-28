@@ -14,27 +14,31 @@ $user_name = $row_user['user_name'];
 
 ?>
 
-<form class="row g-3 needs-validation" action="backend/admin/edit_doc.php" method="post" enctype="multipart/form-data" novalidate>
+<form class="row g-3 needs-validation" action="#" method="post" enctype="multipart/form-data" novalidate>
     <div class="row">
         <div class="col-12 fs-4 text-center text-white " style="background-color:#C84C32;">ผู้รับ</div>
-        <div class="col-8 md-2">
+
+
+        <div class="col-9 md-2">
             <label for="email" class="col-form-label">ผู้เพิ่มเอกสาร</label>
-            <input type="email" name="email" id="email" class="form-control" required>
+            <input type="text" name="email" id="email" class="form-control" required>
             <div id="email" class="form-text text-danger">
                 * ผู้รับหลายคนให้ค้นด้วย (,) เช่น ac@gmail.com,b@gmail.com
             </div>
         </div>
-        <div class="col-4 md-2">
+        <div class="col-3 md-2">
             <label for="to" class="col-form-label">ถึง</label>
             <input type="text" name="to" id="to" class="form-control" required>
-            <div id=" email" class="form-text text-danger">
+            <div id="to" class="form-text text-danger">
                 * Username
             </div>
         </div>
-        <div class="col-4 md-2">
-            <label for="subject" class="col-form-label">ถึง</label>
+        <div class="col-12 md-2 mb-1">
+            <label for="subject" class="col-form-label">หัวเรื่อง</label>
             <input type="text" name="subject" id="subject" class="form-control" required>
         </div>
+
+
         <div class="col-8 p-1 shadow p-3 mb-5 bg-white" style="background-color: #ECDBBA;pointer-events: none;opacity: 0.8;">
             <div class="col-12 fs-4 text-center text-white " style="background-color:#C84C32;">เอกสาร</div>
             <div class="row">
@@ -101,7 +105,9 @@ $user_name = $row_user['user_name'];
             $doc_id = $row['doc_id'];
             $sql_doc_file = "SELECT * FROM `doc_user_file` WHERE `doc_id` = $doc_id";
             $result_doc_file = mysqli_query($conn, $sql_doc_file);
+            $doc_file = array();
             while ($row_doc_file = mysqli_fetch_assoc($result_doc_file)) {
+                array_push($doc_file, $row_doc_file['doc_user_file_name']);
             ?>
                 <div class="col-12">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
@@ -146,70 +152,34 @@ $user_name = $row_user['user_name'];
             </div> -->
         </div>
         <div class="d-flex justify-content-center mt-3">
-            <button class="btn btn-primary rounded-pill me-3" style="width:100px" type="submit">บันทึก</button>
+            <button class="btn btn-primary rounded-pill me-3" name="submit" style="width:100px" type="submit">ส่ง</button>
             <button class="btn btn-danger rounded-pill" style="opacity: 0.9;" onclick="window.location.href='?q=search'" type="button">ยกเลิก</button>
         </div>
     </div>
 </form>
 
 <?php
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
+
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
-//Load Composer's autoloader
-require 'vendor/autoload.php';
-
-//Create an instance; passing `true` enables exceptions
-$mail = new PHPMailer(true);
-
-try {
-    //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'user@example.com';                     //SMTP username
-    $mail->Password   = 'secret';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-    //Recipients
-    $mail->setFrom('from@example.com', 'Mailer');
-    $mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
-    $mail->addAddress('ellen@example.com');               //Name is optional
-    $mail->addReplyTo('info@example.com', 'Information');
-    $mail->addCC('cc@example.com');
-    $mail->addBCC('bcc@example.com');
-
-    //Attachments
-    $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
-
-    //Content
-    $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Here is the subject';
-    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-    $mail->send();
-    echo 'Message has been sent';
-} catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
-?>
-
-<?php
-
-// Import PHPMailer classes into the global namespace 
-// use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\Exception;
 
 require 'PHPMailer-master/src/Exception.php';
 require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
+
+$mail = new PHPMailer;
+if (isset($_POST['submit'])) {
+    $email =  explode(",", $_POST['email']);
+    $nums = count($email);
+    $sub = $_POST['subject'];
+}
+
+
+// Import PHPMailer classes into the global namespace
+
+// Import PHPMailer classes into the global namespace 
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
 
 $mail = new PHPMailer;
 
@@ -226,27 +196,41 @@ $mail->setFrom('sender@codexworld.com', 'KMUTNB');
 $mail->addReplyTo('reply@codexworld.com', 'KMUTNB');
 
 // Add a recipient 
-$mail->addAddress('oufonnuch@gmail.com');
-$mail->addAddress('pocketninja768@gmail.com');
+foreach ($email as $emails) {
+    // # code...
+    // echo $emails . "<br>";
+    $mail->addAddress($emails);
+}
+// $mail->addAddress('oufonnuch@gmail.com');
+// $mail->addAddress('mailfordevbyanuwat@gmail.com');
+
+// $mail->addAddress('pocketninja768@gmail.com');
 //$mail->addCC('cc@example.com'); 
 //$mail->addBCC('bcc@example.com'); 
 $mail->addAttachment('/var/tmp/file.tar.gz');
-$mail->addAttachment('doc/Final_CAD.pdf');
-
+foreach ($doc_file as $file) {
+    # code...
+    $mail->addAttachment('doc/' . $file);
+}
+// print_r($doc_file);
 // Set email format to HTML 
 $mail->isHTML(true);
 
 // Mail subject 
-$mail->Subject = 'DOC';
+$mail->Subject = $sub;
 
 // Mail body content 
-$bodyContent = '<h1>How to Send Email from Localhost using PHP by CodexWorld</h1>';
-$bodyContent .= '<p>This HTML email is sent from the localhost server using PHP by <b>CodexWorld</b></p>';
+$bodyContent = '<h1>ภาษาไทย</h1>';
+$bodyContent .= '<p>View Document :http://localhost/E-lecsarabun/?q=add</p>';
 $mail->Body    = $bodyContent;
 
 // Send email 
+$chk = 0;
 if (!$mail->send()) {
     echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+    echo '  <div class="alert alert-danger" role="alert">
+                พบข้อผิดพลาด ! กรุณาลองใหม่
+            </div>';
 } else {
-    echo 'Message has been sent.';
+    echo "<script>window.location.href = '?q=search'</script>";
 }

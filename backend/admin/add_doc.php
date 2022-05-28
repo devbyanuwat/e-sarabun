@@ -1,6 +1,6 @@
 <?php
 include('../db.php');
-
+session_start();
 $category = $_POST['category'];
 
 $sql_category = "SELECT * FROM `doc_type` WHERE `doc_type` LIKE '$category'";
@@ -8,7 +8,7 @@ $result_category = mysqli_query($conn, $sql_category);
 $row_category = mysqli_fetch_assoc($result_category);
 $category_id = $row_category['doc_type_id'];
 
-$id = $_POST['id'];
+$id = $_SESSION['user_id'];
 $no = $_POST['no'];
 $date = $_POST['date'];
 $time = $_POST['time'];
@@ -19,10 +19,11 @@ $att = $_POST['att'];
 $action = $_POST['action'];
 $handle = $_POST['handle'];
 $urgency = $_POST['urgency'];
+$des = $_POST['des'];
 
 $sql = "INSERT INTO `document` 
-(`doc_id`, `doc_type_id`, `user_id`, `doc_book_number`, `doc_date`, `doc_time`, `doc_from`, `doc_topic`, `doc_refer_to`, `doc_attach`, `doc_handle`, `doc_action`, `doc_urgency`, `doc_status`)
- VALUES (NULL, '$category_id', '$id', '$no', '$date', '$time', '$from', '$topic', '$refer_to', '$att', '$handle', '$action', '$urgency', 1)";
+(`doc_id`, `doc_type_id`, `user_id`, `doc_book_number`, `doc_date`, `doc_time`, `doc_from`, `doc_topic`, `doc_refer_to`, `doc_attach`, `doc_handle`, `doc_action`, `doc_urgency`, `doc_status`,`doc_traffic_id`,`doc_des`)
+ VALUES (NULL, '$category_id', '$id', '$no', '$date', '$time', '$from', '$topic', '$refer_to', '$att', '$handle', '$action', '$urgency', 1,1,'$des')";
 
 mysqli_query($conn, $sql);
 $doc_id = mysqli_insert_id($conn);
@@ -52,4 +53,4 @@ for ($i = 0; $i < $totalfiles; $i++) {
 
 
 mysqli_close($conn);
-header('location:../../?q=search');
+// header('location:../../?q=search');

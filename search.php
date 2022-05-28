@@ -33,8 +33,7 @@
             <th>เลขที่</th>
             <th class="fs-6">ผู้เพิ่มเอกสาร</th>
             <th>ที่มา</th>
-            <th>วันที่รับ</th>
-            <th>วันที่ส่ง</th>
+            <th>อัพโหลด</th>
             <th>ส่ง</th>
             <th class="fs-6">เครื่องมือ</th>
         </tr>
@@ -64,7 +63,6 @@
                 <td><?php echo $row['doc_book_number'] ?></td>
                 <td><?php echo $user_name ?></td> <!-- get name from user id -->
                 <td><?php echo $row['doc_from'] ?></td>
-                <td class="fs-6"><?php echo $row['doc_date'] ?></td>
                 <td class="fs-6"><?php echo $row['doc_date'] ?></td>
                 <td><a href="?q=send_mail&doc_id=<?php echo $row['doc_id'] ?>"><img src="img/icon/send_email.png  " width="25" alt=""></a></td>
                 <td class="d-flex justify-content-around">

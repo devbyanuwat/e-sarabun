@@ -91,7 +91,7 @@ if ($_SESSION['username'] == '') {
                                         <div class="col-2 shadow p-1 bg-body rounded d-flex justify-content-center">
                                             <div style="display:flex;flex-direction:column;">
                                                 <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-6" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=search'"><img src="img/icon/search.png" width="30px" style="opacity: 0.5;"> เอกสารใหม่<?php echo "(  )" ?></button>
-                                                <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=add'"><img src="img/icon/add_document.png" width="30px" style="opacity: 0.5;"> เพิ่ม</button>
+                                                <!-- <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=add'"><img src="img/icon/add_document.png" width="30px" style="opacity: 0.5;"> เพิ่ม</button> -->
                                                 <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=report'"><img src="img/icon/send.png" width="30px" style="opacity: 0.5;"> ติดต่อเรา</button>
                                             </div>
                                         </div>

@@ -18,9 +18,9 @@
 
 <body>
     <!-- <h1><?php echo $_SESSION['level'] ?></h1> -->
-    <div class="col-11 d-flex justify-content-end  align-middle" style="height: 100%;">
+    <div class="col-12 d-flex justify-content-center mx-auto  align-center " style="height: 100%;">
         <div class="row">
-            <div class="col-4 mx-auto bg-dark d-block rounded" style="width: 100%;height:100%;">
+            <div class="col-4 mx-auto bg-dark d-block rounded p-3 mt-5 align-center" style="width: 100%;height:100%;">
                 <form action="backend/login.php" method="post">
                     <div class="col-12 md-2">
                         <label for="username" class="col-form-label text-white">Username</label>

@@ -85,12 +85,17 @@ if ($_SESSION['username'] == '') {
                                 } else if ($q == "test") {
                                     include('test.php');
                                 }
-                            } else if ($_SESSION['level'] == "User") { ?>
+                            } else if ($_SESSION['level'] == "User") {
+                                $username = $_SESSION['username'];
+                                $sql = "SELECT * FROM `document` WHERE `doc_to` LIKE '$username'";
+                                $result = mysqli_query($conn, $sql);
+                                $nums = mysqli_num_rows($result);
+                                ?>
                                 <div class="container mt-5 ">
                                     <div class="row">
                                         <div class="col-2 shadow p-1 bg-body rounded d-flex justify-content-center">
                                             <div style="display:flex;flex-direction:column;">
-                                                <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-6" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=search'"><img src="img/icon/search.png" width="30px" style="opacity: 0.5;"> เอกสารใหม่<?php echo "(  )" ?></button>
+                                                <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-6" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=search'"><img src="img/icon/open.png" width="25px" style="opacity: 0.5;"> เอกสาร<?php echo "<div class='text-danger'>(" . $nums . ")</div>"; ?></button>
                                                 <!-- <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=add'"><img src="img/icon/add_document.png" width="30px" style="opacity: 0.5;"> เพิ่ม</button> -->
                                                 <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=report'"><img src="img/icon/send.png" width="30px" style="opacity: 0.5;"> ติดต่อเรา</button>
                                             </div>

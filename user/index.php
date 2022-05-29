@@ -1,4 +1,4 @@
-<form class="row g-3" action="" method="post">
+<!-- <form class="row g-3" action="" method="post">
     <div class="col-md-4">
         <label for="word" class="form-label">ค้นหาจากคำ</label>
         <input type="text" class="form-control rounded-pill" name="word" id="word" required>
@@ -19,9 +19,9 @@
         <label for="inputState" class="form-label"></label>
         <button type="submit" name="submit" class="btn btn-outline-secondary form-control rounded">ค้นหา</button>
     </div>
-</form>
+</form> -->
 
-<hr class="bg-dark border-2 border-top border-dark">
+<!-- <hr class="bg-dark border-2 border-top border-dark"> -->
 <?php
 $username = $_SESSION['username'];
 
@@ -46,21 +46,6 @@ if (mysqli_num_rows($result) > 0) {
         <tbody class="text-center fs-6">
 
             <?php
-            $search = $_POST['word'];
-            $category = $_POST['category'];
-
-            $sql_category = "SELECT * FROM `doc_type` WHERE `doc_type` LIKE '$category'";
-            $result_category = mysqli_query($conn, $sql_category);
-            $row_category = mysqli_fetch_assoc($result_category);
-            $category_id = $row_category['doc_type_id'];
-            if (isset($_POST['submit'])) {
-
-                $sql = "SELECT * FROM `document` WHERE `doc_type_id` = $category_id AND `doc_book_number` LIKE '%$search%'";
-            } else {
-                $sql = "SELECT * FROM `document`";
-            }
-
-            $result = mysqli_query($conn, $sql);
             $i = 1;
             while ($row = mysqli_fetch_assoc($result)) {
                 $doc_type_id = $row['doc_type_id'];

@@ -9,7 +9,7 @@ if ($_SESSION['username'] == '') {
         <div class="container">
             <a class="navbar-brand fs-3" style="text-shadow: 0.5px 0.5px 2px #000000;" href="#">
                 <img src="img/logo/kmutnb_logo.png" alt="" width="102" height="102" style="filter: drop-shadow(0 0 0.1rem black);">
-                ระบบสารบัญอิเล็กทรอนิกส์ออนไลน์
+                ระบบสารบรรณอิเล็กทรอนิกส์ออนไลน์
             </a>
             <div class="d-flex justify-content-end fs-3 ">
                 <div class="me-3" style="text-shadow: 0.5px 0.5px 2px #000000;"><?php echo $_SESSION['username'] ?> (<?php echo $_SESSION['level'] ?>)</div>
@@ -47,11 +47,12 @@ if ($_SESSION['username'] == '') {
                 <div class="row">
                     <div class="col-2 shadow p-1 bg-body rounded d-flex justify-content-center">
                         <div style="display:flex;flex-direction:column;">
-                            <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=search'"><img src="img/icon/search.png" width="30px" style="opacity: 0.5;"> เอกสาร</button>
-                            <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=add'"><img src="img/icon/add_document.png" width="30px" style="opacity: 0.5;"> เพิ่ม</button>
-                            <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=send'"><img src="img/icon/send.png" width="30px" style="opacity: 0.5;"> ส่ง</button>
-                            <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=doc'"><img src="img/icon/folder.png" width="30px" style="opacity: 0.5;"> ตู้เอกสาร</button>
-                            <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=manage'"><img src="img/icon/manage.png" width="30px" style="opacity: 0.5;"> จัดการผู้ใช้</button>
+                            <button type="button" id="search" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=search&page=1'"><img src="img/icon/search.png" width="30px" style="opacity: 0.5;"> เอกสาร</button>
+                            <button type="button" id="add" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=add'"><img src="img/icon/add_document.png" width="30px" style="opacity: 0.5;"> เพิ่ม</button>
+                            <button type="button" id="send" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=send'"><img src="img/icon/send.png" width="30px" style="opacity: 0.5;"> ส่ง</button>
+                            <button type="button" id="doc" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=doc'"><img src="img/icon/folder.png" width="30px" style="opacity: 0.5;"> ตู้เอกสาร</button>
+                            <button type="button" id="manage" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=manage'"><img src="img/icon/manage.png" width="30px" style="opacity: 0.5;"> จัดการผู้ใช้</button>
+                            <!-- <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=manage'"><img src="img/icon/manage.png" width="30px" style="opacity: 0.5;"> back up</button> -->
                         </div>
                     </div>
                     <div class="col shadow p-3 bg-body rounded" style="margin-left: 10px;">
@@ -59,7 +60,6 @@ if ($_SESSION['username'] == '') {
                             <div class="fs-6">
                                 <!--  dev here-->
                                 <?php
-
                                 if ($q == "") {
                                     include('search.php');
                                 } else  if ($q == "search") {
@@ -115,7 +115,6 @@ if ($_SESSION['username'] == '') {
                                                     include('backend/read.php');
                                                 }
                                             }
-
                                                 ?>
                                                 <!-- dev here -->
                                                 </div>
@@ -175,13 +174,17 @@ if ($_SESSION['username'] == '') {
                                                 })
                                             }
                                         </script>
-
-
                                     </div>
                                 </div>
-
-
     </body>
-
+    <style>
+        .active-bg {
+            background-color: #C84C32;
+        }
+    </style>
+    <?php
+    $q = $_GET['q'];
+    echo "<script> document.getElementById('$q').className='btn btn-outline-secondary text-white btn-lg m-3 fs-5 active-bg'</script> ";
+    ?>
     <?php include('bottom.php'); ?>
 <?php } ?>

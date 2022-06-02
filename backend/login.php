@@ -27,7 +27,7 @@ if (mysqli_num_rows($result) > 0) {
     // } else {
     //     header('location:../?q=search');
     // }
-    header('location:../?q=search');
+    header('location:../?q=search&page=1');
 } else {
     header('location:../login.php');
 }

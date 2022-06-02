@@ -16,8 +16,8 @@
         </select>
     </div>
     <div class="col-2 mt-4">
-        <label for="inputState" class="form-label"></label>
-        <button type="submit" name="submit" class="btn btn-outline-secondary form-control rounded">ค้นหา</button>
+        <button type="submit" name="submit" class="btn btn-secondary form-control rounded">ค้นหา</button>
+        <button type="reset" name="submit" onclick="window.location.href='?q=search'" class="btn btn-outline-secondary form-control rounded">ล้าง</button>
     </div>
 </form>
 
@@ -44,11 +44,43 @@
         $result_category = mysqli_query($conn, $sql_category);
         $row_category = mysqli_fetch_assoc($result_category);
         $category_id = $row_category['doc_type_id'];
-        if (isset($_POST['submit'])) {
 
-            $sql = "SELECT * FROM `document` WHERE `doc_type_id` = $category_id AND `doc_book_number` LIKE '%$search%'";
+        $sql = "SELECT * FROM `document`";
+        if (isset($_POST['submit'])) {
+            $sql = "SELECT * FROM `document` WHERE `doc_type_id` = $category_id AND `doc_book_number` LIKE '%$search%' ORDER BY `doc_id` DESC";
         } else {
-            $sql = "SELECT * FROM `document`";
+            $num_rows = "SELECT COUNT(*) FROM `document`";
+            $result_rows = mysqli_query($conn, $num_rows);
+            $num =  mysqli_fetch_assoc($result_rows)['COUNT(*)'];
+
+            $divide = 7;
+
+            // echo $num . "<- num";
+            // echo "<br>";
+            // echo $num / $divide;
+            // echo "<br>";
+            if ($divide % 2 == 0) {
+                $num = $num / $divide;
+            } else {
+                $num = floor($num / $divide);
+                $num = $num + 1;
+            }
+            // echo $num . " floor";
+            $page = 0;
+            $nums = 1;
+            // echo "<br>";
+            for ($i = 1; $i <= $num; $i++) {
+                // echo $page . " <- page ";
+                // echo "<br>";
+                if ($_GET['page'] == $i) {
+                    $sql = "SELECT * FROM `document` ORDER BY doc_id DESC LIMIT $page,$divide";
+                    $nums = $page + $nums;
+                }
+                $page = $page + $divide;
+            }
+
+
+            // $result = mysqli_query($conn, $sql);
         }
         $result = mysqli_query($conn, $sql);
         $i = 1;
@@ -66,7 +98,7 @@
             $user_name = $row_user['user_name'];
         ?>
             <tr>
-                <td><?php echo $i; ?></td>
+                <td><?php echo $nums ?></td>
                 <td><?php echo $doc_type  ?></td>
                 <td><?php echo $row['doc_book_number'] ?></td>
                 <td><?php echo $user_name ?></td> <!-- get name from user id -->
@@ -75,10 +107,28 @@
 
             </tr>
         <?php
-            $i++;
+            $nums++;
         } ?>
 
 
 
     </tbody>
+
+
 </table>
+<div class="col-12 d-flex justify-content-end">
+    <nav aria-label="...">
+        <ul class="pagination">
+            <?php
+            $num_page = $_GET['page'];
+            for ($i = 1; $i <= $num; $i++) {
+                echo "<li class='page-item' id='page$i'><a class='page-link' ' href='?q=search&page=$i'>$i</a></li>";
+            }
+            ?>
+        </ul>
+    </nav>
+</div>
+
+<?php
+echo "<script> document.getElementById('page$num_page').className='page-item active'</script> ";
+?>

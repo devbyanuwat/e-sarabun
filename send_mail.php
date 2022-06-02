@@ -12,32 +12,115 @@ $result_user =  mysqli_query($conn, $sql_user);
 $row_user = mysqli_fetch_assoc($result_user);
 $user_name = $row_user['user_name'];
 
-?>
+
+
+?><style>
+    body {
+        font-family: Arail, sans-serif;
+    }
+
+    /* Formatting search box */
+    .search-box {
+        width: 100%;
+        position: relative;
+        display: inline-block;
+        font-size: 14px;
+    }
+
+    .search-box input[type="text"] {
+        /* height: 32px; */
+        padding: 5px 10px;
+        border: 1px solid #CCCCCC;
+        font-size: 14px;
+    }
+
+    .result {
+        position: absolute;
+        z-index: 999;
+        top: 100%;
+        left: 0;
+        background-color: white;
+    }
+
+    .search-box input[type="text"],
+    .result {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Formatting result items */
+    .result p {
+        margin: 0;
+        padding: 7px 10px;
+        border: 1px solid #CCCCCC;
+        border-top: none;
+        cursor: pointer;
+        /* pointer-events: none; */
+    }
+
+    .result p:hover {
+        background: #f2f2f2;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        $('.search-box input[type="text"]').on("keyup input", function() {
+            /* Get input value on change */
+            var inputVal = $(this).val();
+            var resultDropdown = $(this).siblings(".result");
+            if (inputVal.length) {
+                $.get("test/backend-search.php", {
+                    term: inputVal
+                }).done(function(data) {
+                    // Display the returned data in browser
+                    resultDropdown.html(data);
+                });
+            } else {
+                resultDropdown.empty();
+            }
+        });
+
+        // Set search input value on click of result item
+        $(document).on("click", ".result p", function() {
+            $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+            $(this).parent(".result").empty();
+        });
+    });
+
+    function add() {
+        document.getElementById('list').innerHTML = "value";
+    }
+</script>
 
 <form class="row g-3 needs-validation" action="#" method="post" enctype="multipart/form-data" novalidate>
     <div class="row">
         <div class="col-12 fs-4 text-center text-white " style="background-color:#C84C32;">ผู้รับ</div>
 
-
-        <div class="col-9 md-2">
-            <label for="email" class="col-form-label">E-mail ผู้รับ</label>
-            <input type="text" name="email" id="email" class="form-control" required>
-            <div id="email" class="form-text text-danger">
-                * ผู้รับหลายคนให้ค้นด้วย (,) เช่น ac@gmail.com,b@gmail.com
+        <div class="col-8 shadow p-3 mb-5 bg-white">
+            <div class="col-12 md-2 d-flex">
+                <div class="col-7 md-2">
+                    <div class="search-box">
+                        <label for="to" class="col-form-label">ถึง</label>
+                        <input type="text" class="form-control" autocomplete="off" name="to" id="to" placeholder="ค้าหาจาก Username" aria-describedby="basic-addon2" />
+                        <div class="result"></div>
+                    </div>
+                </div>
+                <div class="col-4 md-2 ms-3 align-self-end ">
+                    <button class="btn btn-primary" type="button" id="button-addon2" onclick="add();">เลือก</button>
+                    <button class="btn btn-outline-danger" type="button" id="button-addon2" onclick="document.getElementById('to').innerHTML = 'textContent';">ล้าง</button>
+                </div>
+            </div>
+            <div class="col-12 md-2 mb-1">
+                <label for="subject" class="col-form-label">หัวเรื่อง</label>
+                <input type="text" name="subject" id="subject" class="form-control">
             </div>
         </div>
-        <div class="col-3 md-2">
-            <label for="to" class="col-form-label">ถึง</label>
-            <input type="text" name="to" id="to" class="form-control" required>
-            <div id="to" class="form-text text-danger">
-                * Username
-            </div>
-        </div>
-        <div class="col-12 md-2 mb-1">
-            <label for="subject" class="col-form-label">หัวเรื่อง</label>
-            <input type="text" name="subject" id="subject" class="form-control" required>
-        </div>
 
+        <div class="col-4 shadow p-3 mb-5 bg-white">
+            <label for="list" class="col-form-label">รายชื่อ</label>
+            <div id="list"></div>
+        </div>
 
         <div class="col-8 p-1 shadow p-3 mb-5 bg-white" style="background-color: #ECDBBA;pointer-events: none;opacity: 0.8;">
             <div class="col-12 fs-4 text-center text-white " style="background-color:#C84C32;">เอกสาร</div>
@@ -98,7 +181,7 @@ $user_name = $row_user['user_name'];
             </div>
         </div>
 
-        <div class="col-4  shadow p-3 mb-5 bg-white" style="background-color: #ECDBBA;">
+        <div class="col-4 shadow p-3 mb-5 bg-white" style="background-color: #ECDBBA;">
             <div class="col-12 fs-4 text-center text-white " style=" background-color:#C84C32;">ไฟล์แนบ</div>
             <label class="md-3">เอกสาร</label>
             <?php
@@ -153,7 +236,7 @@ $user_name = $row_user['user_name'];
         </div>
         <div class="d-flex justify-content-center mt-3">
             <button class="btn btn-primary rounded-pill me-3" name="submit" style="width:100px" type="submit">ส่ง</button>
-            <button class="btn btn-danger rounded-pill" style="opacity: 0.9;" onclick="window.location.href='?q=search'" type="button">ยกเลิก</button>
+            <button class="btn btn-danger rounded-pill" style="opacity: 0.9;" onclick="window.location.href='?q=send'" type="button">ยกเลิก</button>
         </div>
     </div>
 </form>

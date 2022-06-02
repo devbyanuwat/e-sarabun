@@ -1,54 +1,68 @@
 <?php
+require_once "backend/db.php";
 
-//Database Connection
-$conn = mysqli_connect('localhost', 'root', '', 'upload');
-//Check for connection error
-if ($conn->connect_error) {
-    die("Error in DB connection: " . $conn->connect_errno . " : " . $conn->connect_error);
-}
-
-if (isset($_POST['submit'])) {
-    // Count total uploaded files
-    $totalfiles = count($_FILES['file']['name']);
-
-    // Looping over all files
-    for ($i = 0; $i < $totalfiles; $i++) {
-        $filename = $_FILES['file']['name'][$i];
-
-        // Upload files and store in database
-        if (move_uploaded_file($_FILES["file"]["tmp_name"][$i], 'doc/' . $filename)) {
-            // Image db insert sql
-            $insert = "INSERT into files(file_name,uploaded_on,status) values('$filename',now(),1)";
-            if (mysqli_query($conn, $insert)) {
-                echo 'Data inserted successfully';
-            } else {
-                echo 'Error: ' . mysqli_error($conn);
-            }
-        } else {
-            echo 'Error in uploading file - ' . $_FILES['file']['name'][$i] . '<br/>';
+if (isset($_POST['query'])) {
+    $query = "SELECT * FROM user WHERE user_username LIKE '{$_POST['query']}%' LIMIT 100";
+    $result = mysqli_query($conn, $query);
+    if (mysqli_num_rows($result) > 0) {
+        while ($res = mysqli_fetch_array($result)) {
+            echo $res['user_username'] . "<br/>";
         }
+    } else {
+        echo "
+      <div class='alert alert-danger mt-3 text-center' role='alert'>
+          Username not found
+      </div>
+      ";
     }
 }
-?>
+
+
+<!DOCTYPE html>
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>Ajax PHP MySQL Live Search Example</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <h1>Select Files to Upload</h1>
-        <form method='post' action='#' enctype='multipart/form-data'>
-            <div class="form-group">
-                <input type="file" name="file[]" id="file" multiple>
-            </div>
-            <div class="form-group">
-                <input type='submit' name='submit' value='Upload' class="btn btn-primary">
-            </div>
-        </form>
+    <div class="container mt-5" style="max-width: 555px">
+        <div class="card-header alert alert-warning text-center mb-3">
+            <h2>PHP MySQL Live Search</h2>
+        </div>
+        <input type="search" class="form-control" name="live_search" id="live_search" autocomplete="off" placeholder="Search ...">
+        <div id="search_result"></div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#live_search").keyup(function() {
+                var query = $(this).val();
+                if (query != "") {
+                    $.ajax({
+                        url: 'test_upload_file.php',
+                        method: 'POST',
+                        data: {
+                            query: query
+                        },
+                        success: function(data) {
+                            $('#search_result').html(data);
+                            $('#search_result').css('display', 'block');
+                            $("#live_search").focusout(function() {
+                                $('#search_result').css('display', 'none');
+                            });
+                            $("#live_search").focusin(function() {
+                                $('#search_result').css('display', 'block');
+                            });
+                        }
+                    });
+                } else {
+                    $('#search_result').css('display', 'none');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

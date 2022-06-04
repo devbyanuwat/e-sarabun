@@ -2,6 +2,9 @@
 $search = urldecode($_GET['words']);
 $category = $_GET['category'];
 // echo "<h1>" . $search . "</h1>";
+$divide = 7;
+$page = 0;
+$nums = 1;
 ?>
 
 <form class="row g-3 needs-validation" action="#" method="get" novalidate>
@@ -10,7 +13,7 @@ $category = $_GET['category'];
 
     <div class="col-md-4">
         <label for="word" class="form-label">ค้นหาจากเลขที่หนังสือ</label>
-        <input type="text" class="form-control rounded-pill" name="words" id="words" value="<?php echo $search ?>" pattern="[a-z0-9._-]{9}" required>
+        <input type="text" class="form-control rounded-pill" name="words" id="words" value="<?php echo $search ?>" pattern="[a-z0-9._-]{0-9}" required>
         <div class="invalid-feedback">
             ห้ามใช้ตัวอักษร !@#$%^&*()<>
         </div>
@@ -44,9 +47,7 @@ $row_category = mysqli_fetch_assoc($result_category);
 $category_id = $row_category['doc_type_id'];
 
 // $sql = "SELECT * FROM `document`";
-$divide = 7;
-$page = 0;
-$nums = 1;
+
 
 if (isset($_GET['submit']) == "submit") {
 
@@ -55,12 +56,7 @@ if (isset($_GET['submit']) == "submit") {
     $num =  mysqli_fetch_assoc($result_rows)['COUNT(*)'];
     // echo $num . "<- num";
     // $sql = "SELECT * FROM `document` WHERE `doc_type_id` = $category_id AND `doc_book_number` LIKE '%$search%' ORDER BY `doc_id` DESC";
-    if ($divide % 2 == 0) {
-        $num = $num / $divide;
-    } else {
-        $num = floor($num / $divide);
-        $num = $num + 1;
-    }
+    $num = find_num_row($divide, $num);
     for ($i = 1; $i <= $num; $i++) {
         // echo $page . " <- page ";
         // echo "<br>";
@@ -79,12 +75,7 @@ if (isset($_GET['submit']) == "submit") {
     // echo "<br>";
     // echo $num / $divide;
     // echo "<br>";
-    if ($divide % 2 == 0) {
-        $num = $num / $divide;
-    } else {
-        $num = floor($num / $divide);
-        $num = $num + 1;
-    }
+    $num = find_num_row($divide, $num);
     // echo $num . " floor";
 
     // echo "<br>";

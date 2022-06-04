@@ -13,7 +13,7 @@ $nums = 1;
 
     <div class="col-md-4">
         <label for="word" class="form-label">ค้นหาจากเลขที่หนังสือ</label>
-        <input type="text" class="form-control rounded-pill" name="words" id="words" value="<?php echo $search ?>" pattern="[a-z0-9._-]{0-9}" required>
+        <input type="text" class="form-control rounded-pill" maxlength="9" name="words" id="words" value="<?php echo $search ?>" pattern="[ก-ฮa-zA-Z0-9._-]{1,9}" required>
         <div class="invalid-feedback">
             ห้ามใช้ตัวอักษร !@#$%^&*()<>
         </div>

@@ -4,13 +4,16 @@ $category = $_GET['category'];
 // echo "<h1>" . $search . "</h1>";
 ?>
 
-<form class="row g-3" action="#" method="get">
+<form class="row g-3 needs-validation" action="#" method="get" novalidate>
     <input type="hidden" name="q" value="search">
     <input type="hidden" name="page" value="1">
 
     <div class="col-md-4">
         <label for="word" class="form-label">ค้นหาจากเลขที่หนังสือ</label>
-        <input type="text" class="form-control rounded-pill" name="words" id="words" value="<?php echo $search ?>">
+        <input type="text" class="form-control rounded-pill" name="words" id="words" value="<?php echo $search ?>" pattern="[a-z0-9._-]{9}" required>
+        <div class="invalid-feedback">
+            ห้ามใช้ตัวอักษร !@#$%^&*()<>
+        </div>
     </div>
     <div class="col-5">
         <label for="inputState" class="form-label">ประเภท</label>

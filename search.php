@@ -2,9 +2,7 @@
 $search = urldecode($_GET['words']);
 $category = $_GET['category'];
 // echo "<h1>" . $search . "</h1>";
-$divide = 7;
-$page = 0;
-$nums = 1;
+
 ?>
 
 <form class="row g-3 needs-validation" action="#" method="get" novalidate>

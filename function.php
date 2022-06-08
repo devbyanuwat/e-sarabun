@@ -1,4 +1,7 @@
 <?php
+$divide = 10;
+$page = 0;
+$nums = 1;
 
 function find_num_row($divide, $num)
 {

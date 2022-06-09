@@ -144,6 +144,7 @@ $user_name = $row_user['user_name'];
                     $send_mail = "SELECT * FROM `send_mail` WHERE `doc_id` = $doc_id";
                     $qry_send_mail = mysqli_query($conn, $send_mail);
                     $i = 1;
+                    $user_email = array();
                     if (mysqli_num_rows($qry_send_mail) > 0) { ?>
                         <table class="table table-striped table-sm">
                             <thead class="">
@@ -156,12 +157,15 @@ $user_name = $row_user['user_name'];
                             </thead>
                             <tbody class="fs-6">
                                 <?php while ($row_send_mail = mysqli_fetch_assoc($qry_send_mail)) {
+
                                     $sm_user_id =  $row_send_mail['user_id'];
 
                                     $sql_get_username = "SELECT * FROM `user` WHERE `user_id` = $sm_user_id";
 
                                     $sm_username = mysqli_fetch_assoc(mysqli_query($conn, $sql_get_username))['user_username'];
                                     $sm_email = mysqli_fetch_assoc(mysqli_query($conn, $sql_get_username))['user_email'];
+
+                                    array_push($user_email, $sm_email);
                                 ?>
                                     <tr>
                                         <td><?php echo $i; ?></td>
@@ -181,6 +185,7 @@ $user_name = $row_user['user_name'];
                             </tbody>
                         </table>
                     <?php
+
                     } else {
                         echo "<div class='fw-6 fw-bold text-center mt-3'> ไม่พบการส่งหนังสือ </div>";
                     }
@@ -308,16 +313,17 @@ $user_name = $row_user['user_name'];
         <button class="btn btn-danger rounded-pill" style="opacity: 0.9;" onclick="window.location.href='?q=send'" type="button">ยกเลิก</button>
     </div>
 </div>
-</form>
 
+</form>
+<!-- <?php print_r($user_email); ?> -->
 <?php
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 if (isset($_POST['submit'])) {
-    $email =  explode(",", $_POST['email']);
-    $nums = count($email);
+
+    $nums = count($user_email);
     $sub = $_POST['subject'];
     $to = $_POST['to'];
 

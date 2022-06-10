@@ -8,13 +8,23 @@ function find_num_row($divide, $num)
 
     if ($divide % 2 == 0) {
         $num = $num / $divide;
+        if ($num < 1) {
+            $num = $num + 1;
+        }
     } else {
         $num = floor($num / $divide);
         $num = $num + 1;
     }
     return $num;
 }
-function test()
+function edit_type()
 {
-    return  "close";
 }
+?>
+<script>
+    function edit_type() {
+        type = document.getElementById('type').value;
+        doc_type_id = document.getElementById('doc_type_id').value;
+        window.location.href = 'backend/admin/edit_doc_type.php?doc_type_id=' + doc_type_id + '&doc_type=' + type;
+    }
+</script>

@@ -1,4 +1,4 @@
-<form class="row g-3 needs-validation" action="backend/admin/add_doc.php" method="post" enctype="multipart/form-data" novalidate>
+<form class="row g-3 needs-validation d-flex justify-content-center" action="backend/admin/add_doc.php" method="post" enctype="multipart/form-data" novalidate>
     <div class="row">
         <div class="col-8 p-1 shadow p-3 mb-5 bg-white" style="background-color: #ECDBBA;">
             <div class="col-12 fs-4 text-center text-white " style="background-color:#C84C32;">เพิ่มเอกสาร</div>

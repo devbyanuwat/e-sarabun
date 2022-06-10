@@ -89,7 +89,7 @@ if (isset($_GET['submit']) == "submit") {
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
 ?>
-    <table class="table table-striped table-hover mt-3 fs-5 shadow p-3 mb-5 bg-white text-start ">
+    <table class="table table-striped table-hover mt-3 fs-5 shadow p-3 mb-5 bg-white text-start rounded-3">
         <thead class=" text-white" style="background-color: #C84C32;">
             <tr>
                 <th>#</th>
@@ -99,7 +99,7 @@ if (mysqli_num_rows($result) > 0) {
                 <th>ที่มา</th>
                 <th>อัพโหลด</th>
                 <!-- <th>ส่ง</th> -->
-                <th class="fs-6">เครื่องมือ</th>
+                <th class="fs-6 text-center">เครื่องมือ</th>
             </tr>
         </thead>
         <tbody class="fs-6">

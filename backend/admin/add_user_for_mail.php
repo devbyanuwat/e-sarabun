@@ -1,4 +1,5 @@
 <?php
+include('../../top.php');
 include('../db.php');
 $to = $_POST['to'];
 $doc_id =  $_POST['doc_id'];
@@ -25,3 +26,4 @@ mysqli_query($conn, $sql);
 mysqli_close($conn);
 
 header("location:../../?q=send_mail&doc_id=$doc_id");
+// header("Refresh: 10; URL=");

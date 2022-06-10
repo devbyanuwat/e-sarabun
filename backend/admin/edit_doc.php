@@ -48,4 +48,4 @@ WHERE
 `document`.`doc_id` = $doc_id;";
 mysqli_query($conn, $sql);
 mysqli_close($conn);
-header("location:../../?q=search");
+header("location:../../?q=search&page=1");

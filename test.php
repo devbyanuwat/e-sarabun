@@ -1,86 +1,33 @@
- <?php
-    include('backend/db.php');
-    $num_rows = "SELECT COUNT(*) FROM `document`";
-    $result_rows = mysqli_query($conn, $num_rows);
-    $num =  mysqli_fetch_assoc($result_rows)['COUNT(*)'];
+<?php
+include('header.php');
+?>
+<script>
+    $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+        $("#success-alert").slideUp(500);
+    });
 
-    $divide = 2;
+    $(document).ready(function() {
+        $("#success-alert").hide();
+        $("#myWish").click(function showAlert() {
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+                $("#success-alert").slideUp(500);
+            });
+        });
+    });
+</script>
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 
-    echo $num . "<- num";
-    echo "<br>";
-    echo $num / $divide;
-    echo "<br>";
-    if ($num % 2 == 0) {
-        $num = $num / $divide;
-    } else {
-        $num = floor($num / $divide);
-        $num++;
-    }
-    echo $num . " floor";
-    $page = 0;
-    $nums = 1;
-    echo "<br>";
-    for ($i = 1; $i <= $num; $i++) {
-        echo $page . " <- page ";
-        echo "<br>";
-        if ($_GET['page'] == $i) {
-            $sql = "SELECT * FROM `document` ORDER BY doc_id DESC LIMIT $page,$divide";
-        }
-        $page = $page + $divide;
-    }
-
-    $nums = 1 * $divide;
-    $result = mysqli_query($conn, $sql);
-
-    ?>
- <style>
-     table,
-     th,
-     td {
-         border: 1px solid black;
-         border-collapse: collapse;
-     }
-
-     th,
-     td {
-         width: 25%;
-         text-align: center;
-     }
- </style>
- <table>
-     <tr>
-         <th>#</th>
-         <th>DOC ID</th>
-         <th>DOC BOOK NUMBER</th>
-     </tr>
-     <?php while ($row = mysqli_fetch_assoc($result)) {
-
-        ?>
-         <tr>
-             <td><?php echo $nums; ?></td>
-             <td><?php echo $row['doc_id'] ?></td>
-             <td><?php echo $row['doc_book_number'] ?></td>
-
-         </tr>
-
-     <?php $nums++;
-        } ?>
-
- </table>
- <br>
- <nav aria-label="...">
-     <ul class="pagination">
-         <?php
-            for ($i = 1; $i <= $num; $i++) {
-                echo "<li class='page-item' id='page$i'><a class='page-link' href='?q=test&page=$i'>$i</a></li>";
-            }
-            ?>
+<div class="product-options">
+    <a id="myWish" href="javascript:;" class="btn btn-mini">Add to Wishlist </a>
+    <a href="" class="btn btn-mini"> Purchase </a>
+</div>
 
 
+<div class="alert alert-warning alert-dismissible fade show" role="alert" id="success-alert">
+    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 
-     </ul>
- </nav>
 
- <script>
-     document.getElementById();
- </script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->

@@ -10,7 +10,7 @@ $user_id = $row['user_id'];
 $sql_user = "SELECT * FROM `user` WHERE `user_id` = $user_id";
 $result_user =  mysqli_query($conn, $sql_user);
 $row_user = mysqli_fetch_assoc($result_user);
-$user_name = $row_user['user_name'];
+// $user_name = $row_user['user_name'];
 
 
 
@@ -145,9 +145,11 @@ $user_name = $row_user['user_name'];
                     $qry_send_mail = mysqli_query($conn, $send_mail);
                     $i = 1;
                     $user_email = array();
+                    $send_email_id = array();
+
                     if (mysqli_num_rows($qry_send_mail) > 0) { ?>
                         <table class="table table-striped table-sm">
-                            <thead class="">
+                            <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>ชื่อ</th>
@@ -158,6 +160,7 @@ $user_name = $row_user['user_name'];
                             <tbody class="fs-6">
                                 <?php while ($row_send_mail = mysqli_fetch_assoc($qry_send_mail)) {
 
+
                                     $sm_user_id =  $row_send_mail['user_id'];
 
                                     $sql_get_username = "SELECT * FROM `user` WHERE `user_id` = $sm_user_id";
@@ -166,6 +169,7 @@ $user_name = $row_user['user_name'];
                                     $sm_email = mysqli_fetch_assoc(mysqli_query($conn, $sql_get_username))['user_email'];
 
                                     array_push($user_email, $sm_email);
+                                    array_push($send_email_id, $row_send_mail['send_mail_id']);
                                 ?>
                                     <tr>
                                         <td><?php echo $i; ?></td>
@@ -182,6 +186,7 @@ $user_name = $row_user['user_name'];
                                 <?php
                                     $i++;
                                 } ?>
+
                             </tbody>
                         </table>
                     <?php
@@ -310,7 +315,7 @@ $user_name = $row_user['user_name'];
     </div>
     <div class="d-flex justify-content-center mt-3">
         <button class="btn btn-primary rounded-pill me-3" name="submit" style="width:100px" type="submit">ส่ง</button>
-        <button class="btn btn-danger rounded-pill" style="opacity: 0.9;" onclick="window.location.href='?q=send'" type="button">ยกเลิก</button>
+        <button class="btn btn-danger rounded-pill" style="opacity: 0.9;" onclick="window.location.href='?q=send&page=1'" type="button">ยกเลิก</button>
     </div>
 </div>
 
@@ -325,7 +330,7 @@ if (isset($_POST['submit'])) {
 
     $nums = count($user_email);
     $sub = $_POST['subject'];
-    $to = $_POST['to'];
+
 
 
 
@@ -359,7 +364,7 @@ if (isset($_POST['submit'])) {
     $mail->addReplyTo('reply@codexworld.com', 'KMUTNB');
 
     // Add a recipient 
-    foreach ($email as $emails) {
+    foreach ($user_email as $emails) {
         // # code...
         // echo $emails . "<br>";
         $mail->addAddress($emails);
@@ -395,9 +400,13 @@ if (isset($_POST['submit'])) {
                 พบข้อผิดพลาด ! กรุณาลองใหม่
             </div>';
     } else {
+        // send_email_id
+        for ($i = 0; $i < $nums; $i++) {
+            $sql_update = "UPDATE `send_mail` SET `doc_status_id` = '1' WHERE `send_mail`.`send_mail_id` = $send_email_id[$i];";
+            mysqli_query($conn, $sql_update);
+        }
 
-        $sql_update = "UPDATE `document` SET `doc_to` = '$to' WHERE `document`.`doc_id` = $doc_id;";
-        mysqli_query($conn, $sql_update);
-        echo "<script> window.location.href = '?q=search'</script>";
+
+        echo "<script> window.locatio5n.href = '?q=sendh&page=1'</script>";
     }
 }

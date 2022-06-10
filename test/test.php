@@ -23,22 +23,14 @@
     // document.getElementById('toggle').addEventListener;
 </script>
 
-<body onload="alert('load');">
-    <div class="modal" tabindex="-1" id="toggle">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
+
+<?php
+session_start();
+include('../function.php');
+include('../backend/db.php');
+$user_id = $_SESSION['user_id'];
+$count_doc_user = "SELECT COUNT(*) FROM `send_mail` WHERE `user_id` = $user_id";
+$nums_doc = mysqli_query($conn, $count_doc_user);
+
+echo mysqli_fetch_assoc($nums_doc)['COUNT(*)'];;
+?>

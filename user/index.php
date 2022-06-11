@@ -64,7 +64,7 @@ if (mysqli_num_rows($result) > 0) {
                 $row_user = mysqli_fetch_assoc($result_user);
 
                 $user_name = $row_user['user_name'];
-                $doc_status = $row_doc['doc_status'];
+                $doc_status = $row['doc_status_id'];
             ?>
                 <tr>
                     <td><?php echo $i; ?></td>

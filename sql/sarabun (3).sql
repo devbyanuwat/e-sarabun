@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2022 at 01:22 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Generation Time: Jun 11, 2022 at 03:04 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -191,6 +191,28 @@ INSERT INTO `position` (`post_id`, `post_rank`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `send_mail`
+--
+
+CREATE TABLE `send_mail` (
+  `send_mail_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `doc_id` int(11) NOT NULL,
+  `doc_status_id` int(2) NOT NULL DEFAULT 1,
+  `doc_traffic_id` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `send_mail`
+--
+
+INSERT INTO `send_mail` (`send_mail_id`, `user_id`, `doc_id`, `doc_status_id`, `doc_traffic_id`) VALUES
+(1, 2, 20, 1, 1),
+(2, 2, 15, 2, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -213,9 +235,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `user_username`, `user_password`, `user_name`, `user_lineid`, `user_email`, `user_tel`, `post_id`, `dept_id`, `level_id`) VALUES
 (1, 'admin', '1234', 'Anuwat ตันสงวน', '#', 's6302041510171@email.kmutnb.ac.th', '0822189618', 1, 1, 1),
-(2, 'test002', 'test002', 'veeeeee', '#', '#@e', '#', 1, 1, 2),
-(5, 'test003', 'test003', 'test003', '#', '03@t', '1231231231', 1, 2, 2),
-(6, 'test004', 'test004', 'test005', 'anuwat', '004@t', '0812391823', 1, 1, 2);
+(2, 'test002', 'test002', 'veeeeee', '#', 'oufonnuch@gmail.com', '#', 1, 1, 2),
+(5, 'test003', 'test003', 'test003', '#', 'oufonnuch@gmail.com', '1231231231', 1, 2, 2),
+(6, 'test004', 'test004', 'test005', 'anuwat', 'oufonnuch@gmail.com', '0812391823', 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -283,6 +305,12 @@ ALTER TABLE `position`
   ADD PRIMARY KEY (`post_id`);
 
 --
+-- Indexes for table `send_mail`
+--
+ALTER TABLE `send_mail`
+  ADD PRIMARY KEY (`send_mail_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -339,6 +367,12 @@ ALTER TABLE `doc_user_file`
 --
 ALTER TABLE `position`
   MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `send_mail`
+--
+ALTER TABLE `send_mail`
+  MODIFY `send_mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`

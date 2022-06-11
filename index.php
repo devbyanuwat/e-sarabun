@@ -93,7 +93,10 @@ if ($_SESSION['username'] == '') {
                                     <div class="row">
                                         <div class="col-2 shadow p-1 bg-body rounded d-flex justify-content-center">
                                             <div style="display:flex;flex-direction:column;">
-                                                <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5 position-relative" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=search&page=1'"><img src="img/icon/open.png" width="25px" style="opacity: 0.5;">
+                                                <button type="button" id="search" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5 position-relative" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=search&page=1'">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                                                    </svg>
                                                     เอกสาร
                                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                                         <?php
@@ -105,7 +108,7 @@ if ($_SESSION['username'] == '') {
                                                     </span>
                                                 </button>
                                                 <!-- <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=add'"><img src="img/icon/add_document.png" width="30px" style="opacity: 0.5;"> เพิ่ม</button> -->
-                                                <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=report'"><img src="img/icon/send.png" width="30px" style="opacity: 0.5;"> ติดต่อเรา</button>
+                                                <button type="button" id="report" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=report'"><img src="img/icon/send.png" width="30px" style="opacity: 0.5;"> ติดต่อเรา</button>
                                             </div>
                                         </div>
                                         <div class="col shadow p-3 bg-body rounded" style="margin-left: 10px;">
@@ -192,7 +195,7 @@ if ($_SESSION['username'] == '') {
     </style>
     <?php
     $q = $_GET['q'];
-    echo "<script> document.getElementById('$q').className='btn btn-outline-secondary text-white btn-lg m-3 fs-5 active-bg'</script> ";
+    echo "<script> document.getElementById('$q').className='btn btn-outline-secondary text-white btn-lg m-3 fs-5 active-bg position-relative'</script> ";
     ?>
     <?php include('bottom.php'); ?>
 <?php } ?>

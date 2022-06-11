@@ -5,7 +5,7 @@ $sql = "SELECT * FROM `document` WHERE `doc_id` = $doc_id";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
-$user_id = $row['user_id'];
+$user_id = $_SESSION['user_id'];
 
 $sql_user = "SELECT * FROM `user` WHERE `user_id` = $user_id";
 $result_user =  mysqli_query($conn, $sql_user);
@@ -131,7 +131,7 @@ $user_name = $row_user['user_name'];
         </div>
         <div class="d-flex justify-content-center mt-3">
             <!-- <button class="btn btn-primary rounded-pill me-3" name="submit" style="width:100px" type="submit">ส่ง</button> -->
-            <button class="btn btn-danger btn-lg rounded-pill" style="opacity: 0.9;width:100px" onclick="window.location.href='?q=read&doc_id=<?php echo $row['doc_id'] ?>'" type="button">กลับ</button>
+            <button class="btn btn-danger btn-lg rounded-pill" style="opacity: 0.9;width:100px" onclick="window.location.href='?q=read&doc_id=<?php echo $row['doc_id'] ?>&user_id=<?php echo $user_id; ?>'" type="button">กลับ</button>
         </div>
     </div>
 </form>

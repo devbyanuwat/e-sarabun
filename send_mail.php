@@ -10,7 +10,7 @@ $user_id = $row['user_id'];
 $sql_user = "SELECT * FROM `user` WHERE `user_id` = $user_id";
 $result_user =  mysqli_query($conn, $sql_user);
 $row_user = mysqli_fetch_assoc($result_user);
-// $user_name = $row_user['user_name'];
+$user_name = $row_user['user_name'];
 
 
 
@@ -396,7 +396,7 @@ if (isset($_POST['submit'])) {
     $chk = 0;
     if (!$mail->send()) {
         echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
-        echo '  <div class="alert alert-danger" role="alert">
+        echo '<div class="alert alert-danger" role="alert">
                 พบข้อผิดพลาด ! กรุณาลองใหม่
             </div>';
     } else {

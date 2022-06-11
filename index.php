@@ -100,7 +100,7 @@ if ($_SESSION['username'] == '') {
                                                     เอกสาร
                                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                                         <?php
-                                                        $count_doc_user = "SELECT COUNT(*) FROM `send_mail` WHERE `user_id` = $user_id";
+                                                        $count_doc_user = "SELECT COUNT(*) FROM `send_mail` WHERE `user_id` = $user_id AND `doc_status_id` = 1";
                                                         $nums_doc = mysqli_query($conn, $count_doc_user);
                                                         echo mysqli_fetch_assoc($nums_doc)['COUNT(*)'];;
                                                         ?>

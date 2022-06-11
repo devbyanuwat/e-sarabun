@@ -8,10 +8,10 @@
                     <div class="text-danger"> &#160;S6302041510109@email.kmuntnb.ac.th</div>
                 </div>
                 <div class="col-12 d-flex mb-3 text-secondary">ติดต่อ Line ID :
-                    <div class="text-danger"> &#160;minifrozen</div>
+                    <div class="text-danger"> &#160;Office LINE ID</div>
                 </div>
                 <div class="col-12 d-flex mb-3 text-secondary">โทรสอบถาม :
-                    <div class="text-danger"> &#160;02-5555555</div>
+                    <div class="text-danger"> &#160;02-5555556</div>
                 </div>
             </div>
         </div>

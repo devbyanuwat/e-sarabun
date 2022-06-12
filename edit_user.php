@@ -88,7 +88,7 @@ $department = $row_department['dept_department'];
         </div>
         <div class="form-row d-flex justify-content-center ">
             <button type="submit" class="btn btn-primary m-1">ยืนยัน</button>
-            <button type="button" class="btn btn-outline-danger m-1" onclick="window.location.href='?q=manage'">ยกเลิก</button>
+            <button type="button" class="btn btn-outline-danger m-1" onclick="window.location.href='?q=manage&page=1'">ยกเลิก</button>
         </div>
     </form>
 

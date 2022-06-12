@@ -184,6 +184,44 @@ if ($_SESSION['username'] == '') {
                                                     }
                                                 })
                                             }
+
+                                            function conf_del_doc_type(id) {
+                                                Swal.fire({
+                                                    title: 'ยืนยันการลบหรือไม่?',
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    cancelButtonText: "ยกเลิก",
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    confirmButtonText: 'ยืนยันการลบ',
+
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+
+                                                        window.location.href = 'backend/admin/del_doc_type.php?doc_type_id=' + id
+
+                                                    }
+                                                })
+                                            }
+
+                                            function conf_del_user(id) {
+                                                Swal.fire({
+                                                    title: 'ยืนยันการลบหรือไม่?',
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    cancelButtonText: "ยกเลิก",
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    confirmButtonText: 'ยืนยันการลบ',
+
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+
+                                                        window.location.href = 'backend/admin/del_user.php?user_id=' + id
+
+                                                    }
+                                                })
+                                            }
                                         </script>
                                     </div>
                                 </div>

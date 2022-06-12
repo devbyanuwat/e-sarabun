@@ -339,9 +339,6 @@ if (isset($_POST['submit'])) {
     require 'PHPMailer-master/src/PHPMailer.php';
     require 'PHPMailer-master/src/SMTP.php';
 
-    $mail = new PHPMailer;
-
-
 
     // Import PHPMailer classes into the global namespace
 
@@ -394,19 +391,29 @@ if (isset($_POST['submit'])) {
 
     // Send email 
     $chk = 0;
-    if (!$mail->send()) {
-        echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
-        echo '<div class="alert alert-danger" role="alert">
-                พบข้อผิดพลาด ! กรุณาลองใหม่
-            </div>';
-    } else {
-        // send_email_id
-        for ($i = 0; $i < $nums; $i++) {
-            $sql_update = "UPDATE `send_mail` SET `doc_status_id` = '1' WHERE `send_mail`.`send_mail_id` = $send_email_id[$i];";
-            mysqli_query($conn, $sql_update);
+
+    try {
+        if (!$mail->send()) {
+            throw new Exception($mail->ErrorInfo);
         }
-
-
-        echo "<script> window.locatio5n.href = '?q=sendh&page=1'</script>";
+        echo "success";
+    } catch (Exception $th) {
+        echo "error ->" . $th->getMessage();
     }
+
+    // if (!$mail->send()) {
+    //     echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+    //     echo '<div class="alert alert-danger" role="alert">
+    //             พบข้อผิดพลาด ! กรุณาลองใหม่
+    //         </div>';
+    // } else {
+    //     // send_email_id
+    //     for ($i = 0; $i < $nums; $i++) {
+    //         $sql_update = "UPDATE `send_mail` SET `doc_status_id` = '1' WHERE `send_mail`.`send_mail_id` = $send_email_id[$i];";
+    //         mysqli_query($conn, $sql_update);
+    //     }
+
+
+    //     echo "<script> window.locatio5n.href = '?q=sendh&page=1'</script>";
+    // }
 }

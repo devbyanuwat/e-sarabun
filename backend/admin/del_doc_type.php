@@ -7,4 +7,4 @@ mysqli_query($conn, $sql);
 
 mysqli_close($conn);
 
-header('location:../../?q=doc');
+header('location:../../?q=doc&page=1');

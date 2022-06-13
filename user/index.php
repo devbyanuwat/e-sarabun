@@ -115,13 +115,22 @@ if (mysqli_num_rows($result) > 0) {
                 $row_doc_type = mysqli_fetch_assoc($result_doc_type);
                 $doc_type = $row_doc_type['doc_type'];
 
-                $user_id = $row_doc['user_id'];
+                $user_id = $_SESSION['user_id'];
                 $sql_user = "SELECT * FROM `user` WHERE `user_id` = $user_id";
                 $result_user = mysqli_query($conn, $sql_user);
                 $row_user = mysqli_fetch_assoc($result_user);
 
+                $doc_status = "SELECT * FROM `send_mail` WHERE `user_id` = $user_id AND `doc_id` = $doc_id";
+                $result_doc_status = mysqli_query($conn, $doc_status);
+                $row_doc_status  = mysqli_fetch_assoc($result_doc_status);
+
                 $user_name = $row_user['user_name'];
-                $doc_status = $row['doc_status_id'];
+                $doc_status = $row_doc_status['doc_status_id'];
+
+                echo $doc_id . " <-  doc";
+
+                echo $doc_status . " <-  doc status";
+                echo "<br>";
             ?>
                 <tr>
                     <td><?php echo $i; ?></td>

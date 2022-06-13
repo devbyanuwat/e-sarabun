@@ -127,10 +127,10 @@ if (mysqli_num_rows($result) > 0) {
                 $user_name = $row_user['user_name'];
                 $doc_status = $row_doc_status['doc_status_id'];
 
-                echo $doc_id . " <-  doc";
+                // echo $doc_id . " <-  doc";
 
-                echo $doc_status . " <-  doc status";
-                echo "<br>";
+                // echo $doc_status . " <-  doc status";
+                // echo "<br>";
             ?>
                 <tr>
                     <td><?php echo $i; ?></td>

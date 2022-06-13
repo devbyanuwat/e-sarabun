@@ -1,3 +1,3 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "saraban");
+$conn = mysqli_connect("localhost", "root", "", "sarabun");
 mysqli_set_charset($conn, "utf8");

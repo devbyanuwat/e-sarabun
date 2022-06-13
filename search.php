@@ -39,6 +39,7 @@ $category = $_GET['category'];
 
 <hr class="bg-dark border-2 border-top border-dark">
 <?php
+
 $sql_category = "SELECT * FROM `doc_type` WHERE `doc_type` LIKE '$category'";
 $result_category = mysqli_query($conn, $sql_category);
 $row_category = mysqli_fetch_assoc($result_category);

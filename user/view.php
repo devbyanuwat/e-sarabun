@@ -73,6 +73,11 @@ $user_name = $row_user['user_name'];
                     <label for="handle" class="col-form-label">การดำเนินงาน</label>
                     <input type="text" name="handle" id="handle" class="form-control" value="<?php echo $row['doc_action'] ?>" required>
                 </div>
+                <div class="col-12 md-2">
+                    <label for="des" class="col-form-label">หมายเหตุ</label>
+                    <input type="text" name="des" id="des" class="form-control" value="<?php echo $row['doc_des'] ?>">
+
+                </div>
             </div>
         </div>
 

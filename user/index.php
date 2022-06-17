@@ -1,5 +1,8 @@
 <?php
 $username = $_SESSION['username'];
+$user_id = $_SESSION['user_id'];
+
+
 $search = urldecode($_GET['words']);
 $category = $_GET['category'];
 
@@ -10,7 +13,7 @@ $category = $_GET['category'];
 
     <div class="col-md-4">
         <label for="word" class="form-label">ค้นหาจากเลขที่หนังสือ</label>
-        <input type="text" class="form-control rounded-pill" maxlength="9" name="words" id="words" value="<?php echo $search ?>" pattern="[ก-ฮa-zA-Z0-9._-]{1,9}" required>
+        <input type="text" class="form-control rounded-pill" maxlength="9" name="words" id="words" value="<?php echo $search ?>" pattern="[ก-ฮa-zA-Z0-9._-]{1,9}">
         <div class="invalid-feedback">
             ห้ามใช้ตัวอักษร !@#$%^&*()<>
         </div>
@@ -37,26 +40,46 @@ $category = $_GET['category'];
 <hr class="bg-dark border-2 border-top border-dark">
 <?php
 
-$sql_category = "SELECT * FROM `doc_type` WHERE `doc_type` LIKE '$category'";
-$result_category = mysqli_query($conn, $sql_category);
-$row_category = mysqli_fetch_assoc($result_category);
-$category_id = $row_category['doc_type_id'];
 
 
 if (isset($_GET['submit']) == "submit") {
 
-    $num_rows = "SELECT COUNT(*) FROM `document` WHERE `doc_type_id` = $category_id AND `doc_book_number` LIKE '%$search%' ORDER BY `doc_id` DESC";
+    $sql_category = "SELECT * FROM `doc_type` WHERE `doc_type` LIKE '$category'";
+    $result_category = mysqli_query($conn, $sql_category);
+    $row_category = mysqli_fetch_assoc($result_category);
+    $category_id = $row_category['doc_type_id'];
+
+
+    // echo "search Start <br>";
+    $num_rows = "SELECT COUNT(*) FROM `send_mail` INNER JOIN document ON document.doc_id = send_mail.doc_id AND send_mail.user_id = $user_id AND document.doc_type_id = $category_id AND document.doc_book_number LIKE '%$search%'";
     $result_rows = mysqli_query($conn, $num_rows);
-    $num =  mysqli_fetch_assoc($result_rows)['COUNT(*)'];
-    // echo $num . "<- num";
+    // $document_id = array();
+
+    $row_document = mysqli_fetch_assoc($result_rows);
+    $num = $row_document['COUNT(*)'];
+
+
+    // echo $document_id[1];
+    // echo "<br>";
+    // echo $category_id . " <- category_id \t";
+    // echo $search . " <- search \t";
+    // echo $user_id . " <- user_id \t";
+    // echo $document_id . " <- doc_id \t";
     // $sql = "SELECT * FROM `document` WHERE `doc_type_id` = $category_id AND `doc_book_number` LIKE '%$search%' ORDER BY `doc_id` DESC";
     $num = find_num_row($divide, $num);
+
     for ($i = 1; $i <= $num; $i++) {
         // echo $page . " <- page ";
         // echo "<br>";
         if ($_GET['page'] == $i) {
-            $sql = "SELECT * FROM `document` WHERE `doc_type_id` = $category_id AND `doc_book_number` LIKE '%$search%' ORDER BY `doc_id` DESC LIMIT $page,$divide";
+            // $sql = "SELECT * FROM `document` WHERE `doc_id` = $document_id[$i] AND `doc_type_id` = $category_id AND `doc_book_number` LIKE '%$search%' ORDER BY `doc_id` DESC LIMIT $page,$divide";
+            // $sql = "SELECT send_mail.user_id,document.doc_id,document.doc_type_id,document.doc_book_number,document.doc_from,document.doc_date FROM `send_mail` INNER JOIN document ON document.doc_id = send_mail.doc_id AND send_mail.user_id = $user_id AND document.doc_id = $doc_id AND document.doc_type_id = $category_id AND document.doc_book_number LIKE '%$search%' ORDER BY `doc_id` DESC LIMIT $page,$divide";
+            $sql = "SELECT send_mail.send_mail_id,send_mail.doc_status_id,send_mail.user_id,document.doc_id,document.doc_type_id,document.doc_book_number,document.doc_from,document.doc_date FROM `send_mail` INNER JOIN document ON document.doc_id = send_mail.doc_id AND send_mail.user_id = $user_id AND document.doc_type_id = $category_id AND document.doc_book_number LIKE '%$search%' ORDER BY `send_mail_id` DESC LIMIT $page,$divide";
             $nums = $page + $nums;
+            // echo "<br>";
+            // echo $i . " <- i \t";
+            // echo "<br>";
+            // echo $sql . " <- sql \t";
         }
         $page = $page + $divide;
     }
@@ -73,13 +96,13 @@ if (isset($_GET['submit']) == "submit") {
         // echo $page . " <- page ";
         // echo "<br>";
         if ($_GET['page'] == $i) {
-            $sql = "SELECT * FROM `document` ORDER BY doc_id DESC LIMIT $page,$divide";
+            $sql = "SELECT * FROM `send_mail` WHERE user_id = $user_id ORDER BY send_mail_id DESC LIMIT $page,$divide";
             $nums = $page + $nums;
         }
         $page = $page + $divide;
     }
 }
-
+// echo $sql;
 $result = mysqli_query($conn, $sql);
 
 
@@ -105,38 +128,55 @@ if (mysqli_num_rows($result) > 0) {
             $i = 1;
             while ($row = mysqli_fetch_assoc($result)) {
                 $doc_id = $row['doc_id'];
+                $user_id = $_SESSION['user_id'];
+                // echo $doc_id . "<- doc id\n";
+                // echo $user_id . "<- user id\n";
+
+                $doc_status = "SELECT * FROM `send_mail` WHERE `user_id` = $user_id AND `doc_id` = $doc_id";
+                $result_doc_status = mysqli_query($conn, $doc_status);
+                $row_doc_status  = mysqli_fetch_assoc($result_doc_status);
+
+                $doc_id = $row_doc_status['doc_id'];
+                // echo $row['send_mail_id'] . "<- mail id <br>";
+
+                /////////////////////////----- get doc type -----//////////////////////////////////
                 $sql_doc_id = "SELECT * FROM `document` WHERE `doc_id` = $doc_id";
                 $result_doc_id = mysqli_query($conn, $sql_doc_id);
                 $row_doc = mysqli_fetch_assoc($result_doc_id);
+
+
+                $admin_id = $row_doc['user_id'];
+                $sql_admin = "SELECT * FROM `user` WHERE `user_id` = $admin_id";
+
+                $admin_name = mysqli_fetch_assoc(mysqli_query($conn, $sql_admin))['user_name'];
+
 
                 $doc_type_id = $row_doc['doc_type_id'];
                 $sql_doc_type = "SELECT * FROM `doc_type` WHERE `doc_type_id` = $doc_type_id";
                 $result_doc_type = mysqli_query($conn, $sql_doc_type);
                 $row_doc_type = mysqli_fetch_assoc($result_doc_type);
                 $doc_type = $row_doc_type['doc_type'];
+                /////////////////////////----- get doc type -----//////////////////////////////////
 
-                $user_id = $_SESSION['user_id'];
+
                 $sql_user = "SELECT * FROM `user` WHERE `user_id` = $user_id";
                 $result_user = mysqli_query($conn, $sql_user);
                 $row_user = mysqli_fetch_assoc($result_user);
 
-                $doc_status = "SELECT * FROM `send_mail` WHERE `user_id` = $user_id AND `doc_id` = $doc_id";
-                $result_doc_status = mysqli_query($conn, $doc_status);
-                $row_doc_status  = mysqli_fetch_assoc($result_doc_status);
 
                 $user_name = $row_user['user_name'];
-                $doc_status = $row_doc_status['doc_status_id'];
+                $doc_status = $row['doc_status_id'];
 
-                // echo $doc_id . " <-  doc";
-
-                // echo $doc_status . " <-  doc status";
+                // echo $row_doc_status['doc_id'] . " <-  doc";
                 // echo "<br>";
+                // echo $doc_status . " <-  doc status";
+                // 
             ?>
                 <tr>
-                    <td><?php echo $i; ?></td>
+                    <td><?php echo $nums; ?></td>
                     <td><?php echo $doc_type  ?></td>
                     <td><?php echo $row_doc['doc_book_number'] ?></td>
-                    <td><?php echo $user_name ?></td> <!-- get name from user id -->
+                    <td><?php echo $admin_name ?></td> <!-- get name from user id -->
                     <td><?php echo $row_doc['doc_from'] ?></td>
                     <td class="fs-6"><?php echo $row_doc['doc_date'] ?></td>
                     <td class="d-flex justify-content-around">
@@ -145,13 +185,13 @@ if (mysqli_num_rows($result) > 0) {
                             <p>
                                 <?php if ($doc_status == 1) {
                                 ?>
-                                    <a href="?q=view&doc_id=<?php echo $row_doc['doc_id'] ?>">
+                                    <a href="?q=view&doc_id=<?php echo $row['doc_id']; ?>&send_mail_id=<?php echo $row['send_mail_id'] ?>">
                                     <?php
                                     echo "<span class='badge bg-danger'>ยังไม่ได้อ่าน</span> </a>";
                                 } else { ?>
-                                        <a href="?q=view&doc_id=<?php echo $row_doc['doc_id'] ?>">
-                                        <?php
+                                        <a href="?q=view&doc_id=<?php echo $row['doc_id']; ?>&send_mail_id=<?php echo $row['send_mail_id'] ?>">
 
+                                        <?php
                                         echo "<span class='badge bg-success'>อ่านแล้ว</span>";
                                     } ?>
                             </p>
@@ -159,7 +199,7 @@ if (mysqli_num_rows($result) > 0) {
                     </td>
                 </tr>
             <?php
-                $i++;
+                $nums++;
             } ?>
 
 

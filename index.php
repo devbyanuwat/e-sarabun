@@ -1,7 +1,7 @@
 <?php include('top.php');
 include('backend/db.php');
 if ($_SESSION['username'] == '') {
-    include('login.php');
+    header('location:login.php');
 } else {
 ?>
 

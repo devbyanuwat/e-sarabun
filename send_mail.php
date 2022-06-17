@@ -153,8 +153,8 @@ $user_name = $row_user['user_name'];
                                 <tr>
                                     <th>#</th>
                                     <th>ชื่อ</th>
-                                    <th>E mail</th>
-                                    <th>เครื่องมือ</th>
+                                    <!-- <th>E mail</th> -->
+                                    <th class="text-center">เครื่องมือ</th>
                                 </tr>
                             </thead>
                             <tbody class="fs-6">
@@ -174,7 +174,7 @@ $user_name = $row_user['user_name'];
                                     <tr>
                                         <td><?php echo $i; ?></td>
                                         <td><?php echo $sm_username; ?></td>
-                                        <td><?php echo $sm_email; ?></td>
+                                        <!-- <td><?php echo $sm_email; ?></td> -->
                                         <td class="text-center">
                                             <a href="backend/admin/del_user_send.php?doc_id=<?php echo $row_send_mail['doc_id'] ?>&send_mail_id=<?php echo $row_send_mail['send_mail_id'] ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg text-danger" viewBox="0 0 16 16">
@@ -209,12 +209,13 @@ $user_name = $row_user['user_name'];
                 <label for="category" class="col-form-label">ประเภท</label>
                 <select id="category" name="category" class="form-select form-control">
                     <?php
-                    $sql_doc_type = "SELECT * FROM `doc_type`";
+                    $doc_type_id = $row['doc_type_id'];
+                    $sql_doc_type = "SELECT * FROM `doc_type` WHERE doc_type_id = $doc_type_id";
                     $result_doc_type = mysqli_query($conn, $sql_doc_type);
-                    while ($row_doc_type = mysqli_fetch_assoc($result_doc_type)) {
+                    $row_doc_type = mysqli_fetch_assoc($result_doc_type);
                     ?>
-                        <option><?php echo $row_doc_type['doc_type'] ?></option>
-                    <?php } ?>
+                    <option><?php echo $row_doc_type['doc_type'] ?></option>
+                    <?php  ?>
                 </select>
             </div>
             <div class="col-6 md-2">
@@ -407,19 +408,14 @@ if (isset($_POST['submit'])) {
     //     echo "error ->" . $th->getMessage();
     // }
 
-    if (!$mail->send()) {
-        echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
-        echo '<div class="alert alert-danger" role="alert">
-                พบข้อผิดพลาด ! กรุณาลองใหม่
-            </div>';
-    } else {
-        // send_email_id
-        for ($i = 0; $i < $nums; $i++) {
-            $sql_update = "UPDATE `send_mail` SET `doc_status_id` = '1' WHERE `send_mail`.`send_mail_id` = $send_email_id[$i];";
-            mysqli_query($conn, $sql_update);
-        }
+    $mail->send();
+    echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
 
 
-        echo "<script> window.locatio5n.href = '?q=sendh&page=1'</script>";
+    // send_email_id
+    for ($i = 0; $i < $nums; $i++) {
+        $sql_update = "UPDATE `send_mail` SET `doc_status_id` = '1' WHERE `send_mail`.`send_mail_id` = $send_email_id[$i];";
+        mysqli_query($conn, $sql_update);
     }
+    echo "<script>success('บันทึกสำเร็จ','?q=send&page=1'); </script>";
 }

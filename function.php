@@ -26,4 +26,15 @@ function find_num_row($divide, $num)
         doc_type_id = document.getElementById('doc_type_id').value;
         window.location.href = 'backend/admin/edit_doc_type.php?doc_type_id=' + doc_type_id + '&doc_type=' + type;
     }
+
+    function success(text, redirec) {
+        Swal.fire({
+            icon: 'success',
+            title: text,
+            showConfirmButton: false,
+            timer: 1500
+        }).then(function() {
+            window.location = redirec;
+        })
+    }
 </script>

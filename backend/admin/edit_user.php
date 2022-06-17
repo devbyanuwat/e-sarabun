@@ -39,4 +39,4 @@ $level_id = $row_level['level_id'];
 $sql = "UPDATE `user` SET `user_username` = '$username', `user_password` = '$password', `user_name` = '$name', `user_lineid` = '$line_id', `user_email` = '$email', `user_tel` = '$tel', `post_id` = '$post_id', `dept_id` = '$dept_id', `level_id` = '$level_id' WHERE `user`.`user_id` = $user_id";
 mysqli_query($conn, $sql);
 mysqli_close($conn);
-header("location:../../?q=manage");
+header("location:../../?q=manage&page=1");

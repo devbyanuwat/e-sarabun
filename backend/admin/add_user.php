@@ -35,4 +35,4 @@ $sql = "INSERT INTO `user` (`user_id`, `user_username`, `user_password`, `user_n
 VALUES (NULL, '$username', '$password', '$name', '$line_id', '$email', '$tel', '$post_id', '$dept_id', '$level_id');";
 mysqli_query($conn, $sql);
 mysqli_close($conn);
-header("location:../../?q=manage");
+header("location:../../?q=manage&page=1");

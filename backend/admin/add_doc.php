@@ -1,5 +1,6 @@
 <?php
-include('../db.php');
+include('../../function.php');
+include('../../header.php');
 session_start();
 $category = $_POST['category'];
 
@@ -31,7 +32,6 @@ $doc_id = mysqli_insert_id($conn);
 
 // Count total uploaded files
 $totalfiles = count($_FILES['file']['name']);
-echo "get file";
 // Looping over all files
 for ($i = 0; $i < $totalfiles; $i++) {
     $filename = $_FILES['file']['name'][$i];
@@ -42,15 +42,18 @@ for ($i = 0; $i < $totalfiles; $i++) {
         // $insert = "INSERT into files(file_name,uploaded_on,status) values('$filename',now(),1)";
         $insert = "INSERT INTO `doc_user_file` (`doc_user_file_id`, `doc_id`, `doc_user_file_name`) VALUES (NULL, '$doc_id', '$filename')";
         if (mysqli_query($conn, $insert)) {
-            echo 'Data inserted successfully';
+            // echo 'Data inserted successfully';
         } else {
             echo 'Error: ' . mysqli_error($conn);
         }
     } else {
-        echo 'Error in uploading file - ' . $_FILES['file']['name'][$i] . '<br/>';
+        // echo 'Error in uploading file - ' . $_FILES['file']['name'][$i] . '<br/>';
     }
 }
 
 
 mysqli_close($conn);
-header('location:../../?q=search');
+?>
+<script>
+    success('เพิ่มเอกสารสำเร็จ', '../../?q=send&page=1');
+</script>

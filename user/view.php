@@ -1,9 +1,11 @@
 <?php
 echo "test";
+$send_mail_id = $_GET['send_mail_id'];
 $doc_id = $_GET['doc_id'];
 $sql = "SELECT * FROM `document` WHERE `doc_id` = $doc_id";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
+$admin_id = $row['user_id'];
 
 $user_id = $_SESSION['user_id'];
 
@@ -11,6 +13,11 @@ $sql_user = "SELECT * FROM `user` WHERE `user_id` = $user_id";
 $result_user =  mysqli_query($conn, $sql_user);
 $row_user = mysqli_fetch_assoc($result_user);
 $user_name = $row_user['user_name'];
+
+$sql_admin = "SELECT * FROM `user` WHERE `user_id` = $admin_id";
+
+$admin_name = mysqli_fetch_assoc(mysqli_query($conn, $sql_admin))['user_name'];
+
 
 ?>
 
@@ -35,7 +42,7 @@ $user_name = $row_user['user_name'];
                 </div>
                 <div class="col-6 md-2">
                     <label for="id" class="col-form-label">ผู้เพิ่มเอกสาร</label>
-                    <input type="text" name="id" id="id" class="form-control" value="<?php echo $user_name ?>" required>
+                    <input type="text" name="id" id="id" class="form-control" value="<?php echo $admin_name ?>" required>
                 </div>
                 <div class="col-6 md-2">
                     <label for="no" class="col-form-label">เลขที่หนังสือ</label>
@@ -136,7 +143,7 @@ $user_name = $row_user['user_name'];
         </div>
         <div class="d-flex justify-content-center mt-3">
             <!-- <button class="btn btn-primary rounded-pill me-3" name="submit" style="width:100px" type="submit">ส่ง</button> -->
-            <button class="btn btn-danger btn-lg rounded-pill" style="opacity: 0.9;width:100px" onclick="window.location.href='?q=read&doc_id=<?php echo $row['doc_id'] ?>&user_id=<?php echo $user_id; ?>'" type="button">กลับ</button>
+            <button class="btn btn-danger btn-lg rounded-pill" style="opacity: 0.9;width:100px" onclick="window.location.href='?q=read&send_mail_id=<?php echo $send_mail_id ?>'" type="button">กลับ</button>
         </div>
     </div>
 </form>

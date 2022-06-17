@@ -40,7 +40,7 @@ $department = $row_department['dept_department'];
         </div>
         <div class="col-6 md-2">
             <label for="password" class="col-form-label">Password</label>
-            <input type="password" name="password" id="password" class="form-control" value="<?php echo $row['user_password'] ?> " required>
+            <input type="password" name="password" id="password" class="form-control" value="<?php echo $row['user_password'] ?>" required>
             <div class="invalid-feedback">
                 กรุณากรอกรหัสผ่าน
             </div>

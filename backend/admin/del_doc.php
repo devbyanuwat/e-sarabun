@@ -5,4 +5,4 @@ $sql = "DELETE FROM document WHERE `doc_id` = $id";
 
 mysqli_query($conn, $sql);
 mysqli_close($conn);
-header("location:../../?q=search&page=1");
+header("location:../../?q=send&page=1");

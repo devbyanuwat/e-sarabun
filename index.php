@@ -46,14 +46,7 @@ if ($_SESSION['username'] == '') {
             <div class="container mt-5 ">
                 <div class="row">
                     <div class="col-2 shadow p-1 bg-body rounded d-flex justify-content-center">
-                        <div style="display:flex;flex-direction:column;">
-                            <button type="button" id="search" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=search&page=1'"><img src="img/icon/search.png" width="30px" style="opacity: 0.5;"> เอกสาร</button>
-                            <button type="button" id="add" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=add'"><img src="img/icon/add_document.png" width="30px" style="opacity: 0.5;"> เพิ่ม</button>
-                            <button type="button" id="send" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=send&page=1'"><img src="img/icon/send.png" width="30px" style="opacity: 0.5;"> ส่ง</button>
-                            <button type="button" id="doc" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=doc&page=1'"><img src="img/icon/folder.png" width="30px" style="opacity: 0.5;"> ตู้เอกสาร</button>
-                            <button type="button" id="manage" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=manage&page=1'"><img src="img/icon/manage.png" width="30px" style="opacity: 0.5;"> จัดการผู้ใช้</button>
-                            <!-- <button type="button" class="btn btn-outline-secondary text-dark btn-lg m-3 fs-5" style="text-shadow: 0.5px 0.5px 4px #d9e2ef;" onclick="window.location.href='?q=manage'"><img src="img/icon/manage.png" width="30px" style="opacity: 0.5;"> back up</button> -->
-                        </div>
+                        <?php include('menu.php'); ?>
                     </div>
                     <div class="col shadow p-3 bg-body rounded" style="margin-left: 10px;">
                         <div style="height: 100%;" class="p-3">
